@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/Settings"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SAVE ALL"
+        android:onClick="saveAll"
+        android:id="@+id/button2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_marginEnd="94dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CLEAR ALL"
+        android:onClick="clearAll"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView4"
+        android:layout_marginStart="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="//Extra Features to Be Added"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/UV"
+        android:hint="Set UV 1-11"
+        android:inputType="number"
+        android:layout_above="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="47dp" />
+
+    <RadioGroup
+        android:id="@+id/skinTone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true">
+        <RadioButton
+            android:id="@+id/skinTone1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/skin_tone_type1" />
+        <RadioButton
+            android:id="@+id/skinTone2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/skin_tone_type2"/>
+        <RadioButton
+            android:id="@+id/skinTone3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/skin_tone_type3"/>
+        <RadioButton
+            android:id="@+id/skinTone4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/skin_tone_type4"/>
+        <RadioButton
+            android:id="@+id/skinTone5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/skin_tone_type5"/>
+        <RadioButton
+            android:id="@+id/skinTone6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/skin_tone_type6"/>
+
+
+
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Set Skin Tone:"
+        android:id="@+id/textView3"
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Age:"
+        android:id="@+id/textView4"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textView3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Weight:"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4"
+        android:layout_marginTop="26dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Height:"
+        android:id="@+id/textView6"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/textView5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Set Age"
+        android:id="@+id/setage"
+        android:layout_above="@+id/textView5"
+        android:layout_alignStart="@+id/button"
+        android:textColor="#b0b0b0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Set Weight"
+        android:id="@+id/setweight"
+        android:layout_above="@+id/textView6"
+        android:layout_alignStart="@+id/setage"
+        android:textColor="#b0b0b0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Set Height"
+        android:id="@+id/setheight"
+        android:layout_alignTop="@+id/textView6"
+        android:layout_alignStart="@+id/setweight"
+        android:textColor="#b0b0b0" />
+</RelativeLayout>

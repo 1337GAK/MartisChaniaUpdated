@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+ xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/UVIndex"
+        android:text="UV Exposure Index (Max 11):"  />
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/progressBar"
+        android:max="11"
+        android:progress="7"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/progressbar"
+        android:layout_below="@+id/UVIndex"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SkinDamage"
+        android:text="Expected Skin Damage:"
+        android:layout_below="@+id/progressBar"/>
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/dangerskin"
+        android:max="100"
+        android:progress="76"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/dangerzone"
+        android:layout_below="@id/SkinDamage"/>
+    <ImageView
+        android:id="@+id/heartImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dangerskin"
+        android:src="@mipmap/heartbeat"
+        android:layout_toLeftOf="@+id/bpm"
+
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="96dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/dangerskin"
+        android:gravity="center"
+        android:id="@+id/bpm"
+        android:text="75 BPM"
+        android:layout_alignParentRight="true"/>
+    <ImageView
+        android:id="@+id/bodyTempImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/heartImage"
+        android:src="@drawable/bodytemp"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/bodyTemp"
+        android:layout_alignBottom="@+id/bodyTemp" />
+    <TextView
+        android:layout_width="96dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/heartImage"
+        android:gravity="center"
+        android:id="@+id/bodyTemp"
+        android:text="36 C"
+        android:layout_alignParentRight="true"/>
+    <ImageView
+        android:id="@+id/outTempImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bodyTempImage"
+        android:src="@drawable/outtemp"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/outTemp"
+        android:layout_alignBottom="@+id/outTemp" />
+    <TextView
+        android:layout_width="96dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/bodyTempImage"
+        android:gravity="center"
+        android:id="@+id/outTemp"
+        android:text="23 C"
+        android:layout_alignParentRight="true"/>
+
+    <ImageView
+        android:id="@+id/dehydrationImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/outTempImage"
+        android:src="@drawable/dehydrated"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/dehydration"
+        android:layout_alignBottom="@+id/dehydration" />
+    <TextView
+        android:layout_width="96dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/outTempImage"
+        android:gravity="center"
+        android:id="@+id/dehydration"
+        android:text="0.487% Dehydration"
+        android:layout_alignParentRight="true"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/Results"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="453dp" />
+</RelativeLayout>

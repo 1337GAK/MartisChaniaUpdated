@@ -2,6 +2,7 @@ package martis.project.martischaniaupdated;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -13,7 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import martis.project.martischaniaupdated.Fragments.AboutUs;
 import martis.project.martischaniaupdated.Fragments.Bluetooth;
@@ -50,19 +54,48 @@ public class Drawer extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View hview = navigationView.getHeaderView(0);
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame, new Results()).commit();
+
+        TextView user = (TextView) hview.findViewById(R.id.userName);
+        user.setText(R.string.name);
+        TextView email = (TextView) hview.findViewById(R.id.email);
+        email.setText( R.string.email);
+
+
     }
 
+
+
+
+    private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
+    private long mBackPressed;
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        }
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+                super.onBackPressed();
+                return;
+            } else {
+                Toast.makeText(getBaseContext(), R.string.back, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        mBackPressed = System.currentTimeMillis();
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            for (int i = 0; i < getFragmentManager().getBackStackEntryCount(); ++i) {
+                getFragmentManager().popBackStack();
+            }
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,6 +115,8 @@ public class Drawer extends AppCompatActivity
         if (id == R.id.help) {
             Toast.makeText(Drawer.this, "Help yourself 'tard", Toast.LENGTH_SHORT).show();
             return true;
+        }else if (id == R.id.action_refresh){
+            Toast.makeText(Drawer.this, "Refresh .java", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -96,19 +131,22 @@ public class Drawer extends AppCompatActivity
 
 
         if (id == R.id.settings) {
-            fm.beginTransaction().replace(R.id.content_frame, new Settings()).commit();
+
+            fm.beginTransaction().replace(R.id.content_frame, new Settings()).addToBackStack(null).commit();
+
         } else if (id == R.id.results) {
+
             fm.beginTransaction().replace(R.id.content_frame, new Results()).commit();
         } else if (id == R.id.about) {
-            fm.beginTransaction().replace(R.id.content_frame, new AboutUs()).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new AboutUs()).addToBackStack(null).commit();
         } else if (id == R.id.donate) {
-            fm.beginTransaction().replace(R.id.content_frame, new Donate()).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new Donate()).addToBackStack(null).commit();
         } else if (id == R.id.history) {
-            fm.beginTransaction().replace(R.id.content_frame, new History()).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new History()).addToBackStack(null).commit();
         } else if (id == R.id.bluetooth) {
-            fm.beginTransaction().replace(R.id.content_frame, new Bluetooth()).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new Bluetooth()).addToBackStack(null).commit();
         } else if (id == R.id.rate) {
-            fm.beginTransaction().replace(R.id.content_frame, new RateFeedback()).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new RateFeedback()).addToBackStack(null).commit();
 
 
 

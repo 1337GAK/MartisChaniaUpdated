@@ -130,9 +130,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Set Age"
         android:id="@+id/setage"
-        android:layout_above="@+id/textView5"
-        android:layout_alignStart="@+id/button"
-        android:textColor="#b0b0b0" />
+        android:textColor="#b0b0b0"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/clearAll" />
 
     <TextView
         android:layout_width="wrap_content"

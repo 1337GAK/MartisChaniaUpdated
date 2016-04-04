@@ -102,14 +102,30 @@
         android:id="@+id/dehydration"
         android:text="0.487% Dehydration"
         android:layout_alignParentRight="true"/>
-
-
-
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/Results"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="453dp" />
+        android:layout_height="wrap_content"
+        android:id="@+id/ageView"
+        android:layout_below="@id/dehydration"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/weightView"
+        android:layout_below="@id/ageView"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/heightView"
+        android:layout_below="@id/weightView"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/skinView"
+        android:layout_below="@id/heightView"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spfView"
+        android:layout_below="@id/skinView"/>
+
 </RelativeLayout>

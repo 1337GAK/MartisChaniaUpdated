@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ public class Settings extends Fragment {
         String textAge = userDetails.getString("ageInput", "");
         String textWeight = userDetails.getString("weightInput", "");
         String textHeight = userDetails.getString("heightInput", "");
-        String textSkin = userDetails.getString("skinInput","");
+        String textSkin = userDetails.getString("skinInput","1");
         String SUV = userDetails.getString("UVInput", "5");
         skinTonerg = (RadioGroup) view.findViewById(R.id.skinTone);
 
@@ -101,24 +102,28 @@ public class Settings extends Fragment {
 
         setAge= (TextView) view.findViewById(R.id.setage);
         if (textAge.equals("")){
-            setAge.setText("Set Age");
+            setAge.setText("1");
         }else{
             setAge.setText(textAge);
         }
         setWeight= (TextView) view.findViewById(R.id.setweight);
         if (textWeight.equals("")){
-            setWeight.setText("Set Weight");
+            setWeight.setText("1");
         }else {
             setWeight.setText(textWeight);
         }
         setHeight= (TextView) view.findViewById(R.id.setheight);
         if (textHeight.equals("")){
-            setHeight.setText("Set Height");
+            setHeight.setText("1");
         }else{
             setHeight.setText(textHeight);
         }
         editText4= (EditText) view.findViewById(R.id.UV);
         editText4.setText(SUV);
+        int pos;
+        pos= skinTonerg.indexOfChild(view.findViewById(skinTonerg.getCheckedRadioButtonId()));
+        Log.i("Error", "skinPosition = " + pos);
+        int integerSkinType=pos+1;
 
         saveAll = (Button) view.findViewById(R.id.saveAll);
         saveAll.setOnClickListener(new View.OnClickListener() {
@@ -129,12 +134,10 @@ public class Settings extends Fragment {
                     message1= (String) setAge.getText();
                     message2= (String) setWeight.getText();
                     message3= (String) setHeight.getText();
-                    int pos;
-                    pos= skinTonerg.indexOfChild(v.findViewById(skinTonerg.getCheckedRadioButtonId()));
-                    int integerSkinType=pos+1;
-                    message4=String.valueOf(integerSkinType);
 
-                   message5 = editText4.getText().toString();
+                  //  message4=String.valueOf(integerSkinType);
+                    message4=Integer.toString(4);
+                    message5 = editText4.getText().toString();
                    SharedPreferences userDetails = Settings.this.getActivity().getSharedPreferences("userdetails",Context.MODE_PRIVATE);
                    SharedPreferences.Editor edit = userDetails.edit();
                    edit.putString("ageInput", message1);
@@ -143,6 +146,7 @@ public class Settings extends Fragment {
                     edit.putString("skinInput", message4);
                     edit.putString("UVInput", message5);
                     edit.commit();
+                    Toast.makeText(Settings.this.getActivity(), message4 ,Toast.LENGTH_SHORT).show();
 
             }
         });

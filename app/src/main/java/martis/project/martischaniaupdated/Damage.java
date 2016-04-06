@@ -22,7 +22,7 @@ public class Damage {
         UVRad1=UV;
         time1 = time;
         Log.i("Error", time1 + "  Damage.time1");
-        //  EditText input = new EditText(this);
+        //  EditText input = new EditText(this)
 
        /* AlertDialog.Builder timeSet = new AlertDialog.Builder(getApplicationContext());
 

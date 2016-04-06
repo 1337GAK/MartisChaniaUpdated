@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +58,6 @@ public class Settings extends Fragment {
         String textSkin = userDetails.getString("skinInput","1");
         String SUV = userDetails.getString("UVInput", "5");
         skinTonerg = (RadioGroup) view.findViewById(R.id.skinTone);
-
         setAge = (TextView) view.findViewById(R.id.setage);
         setAge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,22 +125,28 @@ public class Settings extends Fragment {
         Log.i("Error", "skinPosition = " + pos);
         int integerSkinType=pos+1;
 
+        skinTonerg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int pos;
+                RadioButton rb1=(RadioButton)getActivity().findViewById(checkedId);
+                pos=group.indexOfChild(rb1);
+                message4=String.valueOf(pos + 1);
+            }
+        });
+
         saveAll = (Button) view.findViewById(R.id.saveAll);
         saveAll.setOnClickListener(new View.OnClickListener() {
-
-
+            @Override
             public void onClick(View v)
                 {
                     message1= (String) setAge.getText();
                     message2= (String) setWeight.getText();
                     message3= (String) setHeight.getText();
-
-                  //  message4=String.valueOf(integerSkinType);
-                    message4=Integer.toString(4);
                     message5 = editText4.getText().toString();
-                   SharedPreferences userDetails = Settings.this.getActivity().getSharedPreferences("userdetails",Context.MODE_PRIVATE);
-                   SharedPreferences.Editor edit = userDetails.edit();
-                   edit.putString("ageInput", message1);
+                    SharedPreferences userDetails = Settings.this.getActivity().getSharedPreferences("userdetails",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor edit = userDetails.edit();
+                    edit.putString("ageInput", message1);
                     edit.putString("weightInput", message2);
                     edit.putString("heightInput", message3);
                     edit.putString("skinInput", message4);
@@ -171,6 +177,7 @@ public class Settings extends Fragment {
         });
         return view;
     }
+
 
     protected void showAgePopup(){
         LayoutInflater layoutInflater= LayoutInflater.from(Settings.this.getActivity());

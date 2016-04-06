@@ -58,10 +58,6 @@ public class Drawer extends AppCompatActivity
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame, new Results()).commit();
 
-        TextView user = (TextView) hview.findViewById(R.id.userName);
-        user.setText(R.string.name);
-        TextView email = (TextView) hview.findViewById(R.id.email);
-        email.setText( R.string.email);
 
 
     }

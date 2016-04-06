@@ -111,21 +111,20 @@ public class Settings extends Fragment {
         }
         setWeight= (TextView) view.findViewById(R.id.setweight);
         if (textWeight.equals("")){
-            setWeight.setText("1 kg");
+            setWeight.setText("1");
         }else {
-            setWeight.setText(textWeight+" kg");
+            setWeight.setText(textWeight);
         }
         setHeight= (TextView) view.findViewById(R.id.setheight);
         if (textHeight.equals("")){
-            setHeight.setText("1 cm");
+            setHeight.setText("1");
         }else{
-            setHeight.setText(textHeight+" cm");
+            setHeight.setText(textHeight);
         }
         editText4= (EditText) view.findViewById(R.id.UV);
         editText4.setText(SUV);
         int pos;
         pos= skinTonerg.indexOfChild(view.findViewById(skinTonerg.getCheckedRadioButtonId()));
-        Log.i("Error", "skinPosition = " + pos);
 
         skinTonerg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -187,10 +186,6 @@ public class Settings extends Fragment {
         AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(Settings.this.getActivity());
         alertDialogBuilder.setView(promptView);
         final DatePicker datePicker=(DatePicker) promptView.findViewById(R.id.datePicker);
-        //final NumberPicker numPick=(NumberPicker) promptView.findViewById(R.id.numberPicker);
-        //numPick.setMinValue(0);
-        //numPick.setMaxValue(2);
-        //numPick.setDisplayedValues(new String[]{"Belgium", "France", "United Kingdom"});
         alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {

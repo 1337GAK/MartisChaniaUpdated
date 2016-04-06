@@ -54,7 +54,7 @@
             android:id="@+id/skinTone1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/skin_tone_type1" />
+            android:background="@drawable/skin_tone_1_selector" />
         <RadioButton
             android:id="@+id/skinTone2"
             android:layout_width="wrap_content"

@@ -3,12 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:hint="Height"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/numberPicker"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

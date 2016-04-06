@@ -13,12 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import martis.project.martischaniaupdated.R;
 
@@ -108,22 +111,21 @@ public class Settings extends Fragment {
         }
         setWeight= (TextView) view.findViewById(R.id.setweight);
         if (textWeight.equals("")){
-            setWeight.setText("1");
+            setWeight.setText("1 kg");
         }else {
-            setWeight.setText(textWeight);
+            setWeight.setText(textWeight+" kg");
         }
         setHeight= (TextView) view.findViewById(R.id.setheight);
         if (textHeight.equals("")){
-            setHeight.setText("1");
+            setHeight.setText("1 cm");
         }else{
-            setHeight.setText(textHeight);
+            setHeight.setText(textHeight+" cm");
         }
         editText4= (EditText) view.findViewById(R.id.UV);
         editText4.setText(SUV);
         int pos;
         pos= skinTonerg.indexOfChild(view.findViewById(skinTonerg.getCheckedRadioButtonId()));
         Log.i("Error", "skinPosition = " + pos);
-        int integerSkinType=pos+1;
 
         skinTonerg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -152,7 +154,7 @@ public class Settings extends Fragment {
                     edit.putString("skinInput", message4);
                     edit.putString("UVInput", message5);
                     edit.commit();
-                    Toast.makeText(Settings.this.getActivity(), message4 ,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Settings.this.getActivity(), "All Data Saved" ,Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -181,20 +183,37 @@ public class Settings extends Fragment {
 
     protected void showAgePopup(){
         LayoutInflater layoutInflater= LayoutInflater.from(Settings.this.getActivity());
-        View promptView =layoutInflater.inflate(R.layout.pop_up_window, null);
+        View promptView =layoutInflater.inflate(R.layout.pop_up_window_age, null);
         AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(Settings.this.getActivity());
         alertDialogBuilder.setView(promptView);
-        final NumberPicker numPick=(NumberPicker) promptView.findViewById(R.id.numberPicker);
-        numPick.setMinValue(0);
-        numPick.setMaxValue(100);
-        //setup a dialog window
+        final DatePicker datePicker=(DatePicker) promptView.findViewById(R.id.datePicker);
+        //final NumberPicker numPick=(NumberPicker) promptView.findViewById(R.id.numberPicker);
+        //numPick.setMinValue(0);
+        //numPick.setMaxValue(2);
+        //numPick.setDisplayedValues(new String[]{"Belgium", "France", "United Kingdom"});
         alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                message1=String.valueOf(numPick.getValue());
+                int date;
+                int month;
+                int year;
+                date = datePicker.getDayOfMonth();
+                month = datePicker.getMonth();
+                year = datePicker.getYear();
+                Calendar calendar=Calendar.getInstance();
+                int currDate=calendar.get(Calendar.DAY_OF_MONTH);
+                int currMonth=calendar.get(Calendar.MONTH);
+                int currYear=calendar.get(Calendar.YEAR);
+                int age=currYear-year-1;
+                if (currMonth>month){
+                    age++;
+                }else if(currMonth==month){
+                    if (currDate>date){
+                        age++;
+                    }
+                }
+                message1=String.valueOf(age);
                 setAge.setText(message1);
-                Toast.makeText(Settings.this.getActivity(), "asd", Toast.LENGTH_SHORT).show();
-               // Toast.makeText(Settings.this, "Age="+numPick.getValue(), Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -208,21 +227,26 @@ public class Settings extends Fragment {
 
     protected void showWeightPopup(){
         LayoutInflater layoutInflater= LayoutInflater.from(Settings.this.getActivity());
-        View promptView =layoutInflater.inflate(R.layout.pop_up_window, null);
+        View promptView =layoutInflater.inflate(R.layout.pop_up_window_weight, null);
         AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(Settings.this.getActivity());
         alertDialogBuilder.setView(promptView);
         final NumberPicker numPick=(NumberPicker) promptView.findViewById(R.id.numberPicker);
+        final EditText weight=(EditText) promptView.findViewById(R.id.editText);
         numPick.setMinValue(0);
-        numPick.setMaxValue(150);
-        numPick.setWrapSelectorWheel(true);
-        numPick.setOnLongPressUpdateInterval(2000);
-        //setup a dialog window
+        numPick.setMaxValue(1);
+        numPick.setDisplayedValues(new String[]{"kg", "lbs",});
         alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                message2=String.valueOf(numPick.getValue());
+                if (numPick.getValue()==1){
+                    int kg;
+                    kg= (int) ((0.45)*(Float.parseFloat(weight.getText().toString())));
+                    message2=String.valueOf(kg);
+                }else{
+                    message2=weight.getText().toString();
+                }
                 setWeight.setText(message2);
-                Toast.makeText(Settings.this.getActivity(), "Weight="+numPick.getValue(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Settings.this.getActivity(), "Weight="+message2+" kg", Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -236,19 +260,26 @@ public class Settings extends Fragment {
 
     protected void showHeightPopup(){
         LayoutInflater layoutInflater= LayoutInflater.from(Settings.this.getActivity());
-        View promptView =layoutInflater.inflate(R.layout.pop_up_window, null);
+        View promptView =layoutInflater.inflate(R.layout.pop_up_window_height, null);
         AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(Settings.this.getActivity());
         alertDialogBuilder.setView(promptView);
         final NumberPicker numPick=(NumberPicker) promptView.findViewById(R.id.numberPicker);
+        final EditText height=(EditText) promptView.findViewById(R.id.editText);
         numPick.setMinValue(0);
-        numPick.setMaxValue(230);
-        //setup a dialog window
+        numPick.setMaxValue(1);
+        numPick.setDisplayedValues(new String[]{"cm", "inches"});
         alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                message3=String.valueOf(numPick.getValue());
+                if (numPick.getValue()==1){
+                    int cm;
+                    cm=(int) ((2.54)*(Float.parseFloat(height.getText().toString())));
+                    message3=String.valueOf(cm);
+                }else{
+                    message3=height.getText().toString();
+                }
                 setHeight.setText(message3);
-                Toast.makeText(Settings.this.getActivity(), "Height="+numPick.getValue(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Settings.this.getActivity(), "Height="+message3+" cm", Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

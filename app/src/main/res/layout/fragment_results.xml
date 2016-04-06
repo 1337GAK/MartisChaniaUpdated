@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/progressbars"
+    android:background="@color/white">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,23 +34,31 @@
         android:indeterminate="false"
         android:progressDrawable="@drawable/dangerzone"
         android:layout_below="@id/SkinDamage"/>
-    <ImageView
-        android:id="@+id/heartImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dangerskin"
-        android:src="@mipmap/heartbeat"
-        android:layout_toLeftOf="@+id/bpm"
 
-        android:layout_alignParentStart="true" />
+
+<RelativeLayout
+android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layout_below="@+id/dangerskin">
+    <ImageView
+
+        android:id="@+id/heartImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:src="@mipmap/heartbeat"
+        android:layout_alignParentTop="true"
+
+ />
     <TextView
         android:layout_width="96dp"
         android:layout_height="60dp"
-        android:layout_below="@id/dangerskin"
         android:gravity="center"
         android:id="@+id/bpm"
         android:text="75 BPM"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/heartImage"
+ />
     <ImageView
         android:id="@+id/bodyTempImage"
         android:layout_width="0dp"
@@ -62,11 +71,11 @@
     <TextView
         android:layout_width="96dp"
         android:layout_height="60dp"
-        android:layout_below="@id/heartImage"
         android:gravity="center"
         android:id="@+id/bodyTemp"
         android:text="36 C"
-        android:layout_alignParentRight="true"/>
+        android:layout_below="@+id/heartImage"
+        android:layout_alignStart="@+id/bpm" />
     <ImageView
         android:id="@+id/outTempImage"
         android:layout_width="0dp"
@@ -79,11 +88,11 @@
     <TextView
         android:layout_width="96dp"
         android:layout_height="60dp"
-        android:layout_below="@id/bodyTempImage"
         android:gravity="center"
         android:id="@+id/outTemp"
         android:text="23 C"
-        android:layout_alignParentRight="true"/>
+        android:layout_below="@+id/bodyTempImage"
+        android:layout_toEndOf="@+id/bodyTempImage" />
 
     <ImageView
         android:id="@+id/dehydrationImage"
@@ -97,11 +106,11 @@
     <TextView
         android:layout_width="96dp"
         android:layout_height="60dp"
-        android:layout_below="@id/outTempImage"
         android:gravity="center"
         android:id="@+id/dehydration"
         android:text="0.487% Dehydration"
-        android:layout_alignParentRight="true"/>
+        android:layout_below="@+id/outTempImage"
+        android:layout_toEndOf="@+id/outTempImage" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -128,4 +137,6 @@
         android:id="@+id/spfView"
         android:layout_below="@id/skinView"/>
 
+
 </RelativeLayout>
+    </RelativeLayout>

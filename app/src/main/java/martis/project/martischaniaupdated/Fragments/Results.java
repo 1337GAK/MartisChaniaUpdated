@@ -159,14 +159,14 @@ public class Results extends Fragment {
         dehydration2.setText(deh + "%");
         ambArm(Temp, outTemp);                                  // Function, compares 2 temps and shows if there is a chance of being sick
 
-        TextView textAge = (TextView) view.findViewById(R.id.ageView);
+       /* TextView textAge = (TextView) view.findViewById(R.id.ageView);
         TextView textWeight = (TextView) view.findViewById(R.id.weightView);           //UI Interaction, shows user settings
         TextView textHeight = (TextView) view.findViewById(R.id.heightView);
         TextView textSkin = (TextView) view.findViewById(R.id.skinView);
         textAge.setText("Age: "+age+" years old");
         textWeight.setText("Weight: " + weight1 + "kg");
         textHeight.setText("Height(m.cm): "+height1);
-        textSkin.setText("Skin Type: "+skinType+" (FitzPatrick)");
+        textSkin.setText("Skin Type: "+skinType+" (FitzPatrick)"); */
 
         dangerSkinProgress.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -205,8 +205,8 @@ public class Results extends Fragment {
                     dmg = (int) potentialDamage.skinDamage();
                     dangerSkinProgress.setProgress(dmg);
                     Toast.makeText(Results.this.getActivity(), "Apply suncream of at least" + spf + " volume immediately", Toast.LENGTH_SHORT).show();
-                    TextView textSpf = (TextView) Results.this.getActivity().findViewById(R.id.spfView);
-                    textSpf.setText("Last Suncream SPF: " + spf);
+                  //  TextView textSpf = (TextView) Results.this.getActivity().findViewById(R.id.spfView);
+                   //       textSpf.setText("Last Suncream SPF: " + spf);
 
                 }
 

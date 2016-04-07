@@ -193,7 +193,9 @@ public class Results extends Fragment {
         timeSet.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                time = Float.parseFloat(input.getText().toString());
+                String t= input.getText().toString();
+                if (t.equals("")){t="1";}
+                time = Float.parseFloat(t);
                 Log.i("Error", time + "       ok button");
                 potentialDamage = new Damage(age, skinType, UVRad, time);
                 int dmg = (int) potentialDamage.skinDamage();
@@ -216,8 +218,8 @@ public class Results extends Fragment {
         timeSet.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                time = 10;
-                dangerSkinProgress.setProgress(10);
+                time = 1;
+                dangerSkinProgress.setProgress(0);
                 dialog.cancel();
 
                 Log.i("Error", time + "       cancel button");
@@ -272,19 +274,19 @@ public class Results extends Fragment {
         error=(armTempTheory-armTemp)/armTempTheory;
         if (ambTemp<30){
             if (error<0.15&&error>-0.15){
-                //healthy
+                Toast.makeText(Results.this.getActivity(),"No potential danger detected", Toast.LENGTH_SHORT).show();
             }else if(error>=0.15){
-                //      Toast.makeText(Results.this, "Careful, danger of flu", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(Results.this.getActivity(), "Careful, danger of flu", Toast.LENGTH_SHORT).show();
             }else if(error<=0.15){
-                //     Toast.makeText(Results.this, "You should consider putting more clothes", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(Results.this.getActivity(), "You should consider putting more clothes", Toast.LENGTH_SHORT).show();
             }
         }else{
             if (error<0.1&&error>-0.1){
-                //healthy
+                Toast.makeText(Results.this.getActivity(),"No potential danger detected", Toast.LENGTH_SHORT).show();
             }else if(error>=0.1){
-                //  Toast.makeText(Results.this, "Careful, danger of flu", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(Results.this.getActivity(), "Careful, danger of flu", Toast.LENGTH_SHORT).show();
             }else if(error<=0.1){
-                //   Toast.makeText(Results.this, "You should consider putting more clothes", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(Results.this.getActivity(), "You should consider putting more clothes", Toast.LENGTH_SHORT).show();
             }
         }
     }

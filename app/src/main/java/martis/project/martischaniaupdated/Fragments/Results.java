@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nhaarman.supertooltips.ToolTip;
+import com.nhaarman.supertooltips.ToolTipRelativeLayout;
+import com.nhaarman.supertooltips.ToolTipView;
+
 import java.io.FileInputStream;
 import java.text.DecimalFormat;
 
@@ -30,9 +35,14 @@ import martis.project.martischaniaupdated.R;
  * Created by GAK on 4/3/2016.
  */
 public class Results extends Fragment {
+
+
     Runnable runnable;
+    private ToolTipView UVtooltip;
+    private ToolTipRelativeLayout mToolTipFrameLayout;
+
     float[] data;
-    ProgressBar myProgress;
+    static public ProgressBar myProgress;
     ProgressBar dangerSkinProgress;
     TextView heartTextView;
     TextView tempTextView;
@@ -71,6 +81,11 @@ public class Results extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_results,null);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Project M.A.R.T.I.S.");
+
+
+
+
+
 
         /*ImageView heart = (ImageView) view.findViewById(R.id.heartImage);
         TextView bpm = (TextView) view.findViewById(R.id.bpm);
@@ -140,6 +155,8 @@ public class Results extends Fragment {
 
         myProgress = (ProgressBar) view.findViewById(R.id.progressBar);     // UI Interaction. Sets Progress bar for radiation
         myProgress.setProgress(UVRad);
+
+
 
 
         heartTextView = (TextView) view.findViewById(R.id.bpm);  // UI Interaction. Sets BPM
@@ -289,5 +306,10 @@ public class Results extends Fragment {
                    Toast.makeText(Results.this.getActivity(), "You should consider putting more clothes", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    public  void resultsAHelp(){
+        Toast.makeText(Results.this.getActivity(), "RESULTS HELP 123", Toast.LENGTH_SHORT).show();
+
+
     }
 }

@@ -17,7 +17,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import org.w3c.dom.Text;
+
+import java.lang.annotation.Target;
 
 import martis.project.martischaniaupdated.Fragments.AboutUs;
 import martis.project.martischaniaupdated.Fragments.Bluetooth;
@@ -29,12 +32,12 @@ import martis.project.martischaniaupdated.Fragments.Settings;
 
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -56,17 +59,15 @@ public class Drawer extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View hview = navigationView.getHeaderView(0);
         FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().replace(R.id.content_frame, new Results()).commit();
-
+        fm.beginTransaction().replace(R.id.content_frame, new Results(),"RESULTS").commit();
 
 
     }
 
 
-
-
     private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
     private long mBackPressed;
+
     @Override
     public void onBackPressed() {
 
@@ -92,7 +93,6 @@ public class Drawer extends AppCompatActivity
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -109,14 +109,40 @@ public class Drawer extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.help) {
-            Toast.makeText(Drawer.this, "Help yourself 'tard", Toast.LENGTH_SHORT).show();
-            return true;
-        }else if (id == R.id.action_refresh){
-            Toast.makeText(Drawer.this, "Refresh .java", Toast.LENGTH_SHORT).show();
+            Settings settingsHelp = (Settings) getFragmentManager().findFragmentByTag("SETTINGS");
+            Results resultsHelp = (Results) getFragmentManager().findFragmentByTag("RESULTS");
+            Donate donateHelp = (Donate) getFragmentManager().findFragmentByTag("DONATE");
+            AboutUs aboutHelp = (AboutUs) getFragmentManager().findFragmentByTag("ABOUT");
+            RateFeedback rateHelp = (RateFeedback) getFragmentManager().findFragmentByTag("RATE");
+            Bluetooth bluetoothHelp = (Bluetooth) getFragmentManager().findFragmentByTag("BLUETOOTH");
+            History historyHelp = (History) getFragmentManager().findFragmentByTag("HISTORY");
+
+            if (settingsHelp != null && settingsHelp.isVisible()) {
+                Toast.makeText(Drawer.this, "SETTINGS HELP", Toast.LENGTH_SHORT).show();
+
+            } else if (resultsHelp != null && resultsHelp.isVisible()) {
+resultsHelp.resultsAHelp();          }
+                else if (donateHelp != null && donateHelp.isVisible()) {
+                    Toast.makeText(Drawer.this, "DONATE HELP", Toast.LENGTH_SHORT).show();
+                } else if (aboutHelp != null && aboutHelp.isVisible()) {
+                    Toast.makeText(Drawer.this, "ABOUT HELP", Toast.LENGTH_SHORT).show();
+                } else if (rateHelp != null && rateHelp.isVisible()) {
+                    Toast.makeText(Drawer.this, "RATE HELP", Toast.LENGTH_SHORT).show();
+                } else if (bluetoothHelp != null && bluetoothHelp.isVisible()) {
+                    Toast.makeText(Drawer.this, "BLUETOOTH HELP", Toast.LENGTH_SHORT).show();
+                } else if (historyHelp != null && historyHelp.isVisible()) {
+                    Toast.makeText(Drawer.this, "HISTORY HELP", Toast.LENGTH_SHORT).show();
+                }
+
+
+                return true;
+            } else if (id == R.id.action_refresh) {
+                Toast.makeText(Drawer.this, "Refresh .java", Toast.LENGTH_SHORT).show();
+            }
+
+            return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -125,31 +151,32 @@ public class Drawer extends AppCompatActivity
         int id = item.getItemId();
         FragmentManager fm = getFragmentManager();
 
-
         if (id == R.id.settings) {
 
-            fm.beginTransaction().replace(R.id.content_frame, new Settings()).addToBackStack(null).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new Settings(),"SETTINGS").addToBackStack(null).commit();
 
         } else if (id == R.id.results) {
+            fm.beginTransaction().replace(R.id.content_frame, new Results(),"RESULTS").commit();
 
-            fm.beginTransaction().replace(R.id.content_frame, new Results()).commit();
         } else if (id == R.id.about) {
-            fm.beginTransaction().replace(R.id.content_frame, new AboutUs()).addToBackStack(null).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new AboutUs(),"ABOUT").addToBackStack(null).commit();
         } else if (id == R.id.donate) {
-            fm.beginTransaction().replace(R.id.content_frame, new Donate()).addToBackStack(null).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new Donate(),"DONATE").addToBackStack(null).commit();
         } else if (id == R.id.history) {
-            fm.beginTransaction().replace(R.id.content_frame, new History()).addToBackStack(null).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new History(),"HISTORY").addToBackStack(null).commit();
         } else if (id == R.id.bluetooth) {
-            fm.beginTransaction().replace(R.id.content_frame, new Bluetooth()).addToBackStack(null).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new Bluetooth(),"BLUETOOTH").addToBackStack(null).commit();
         } else if (id == R.id.rate) {
-            fm.beginTransaction().replace(R.id.content_frame, new RateFeedback()).addToBackStack(null).commit();
+            fm.beginTransaction().replace(R.id.content_frame, new RateFeedback(),"RATE").addToBackStack(null).commit();
 
 
-
-            }
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }

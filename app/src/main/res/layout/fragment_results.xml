@@ -1,142 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/progressbars"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white">
-    <TextView
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/UVIndex"
-        android:text="UV Exposure Index (Max 11):"  />
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/UVIndex"
+                android:text="UV Exposure Index (Max 11):"
+                android:padding="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:max="11"
+                android:progress="7"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/progressbar"
+                android:layout_below="@+id/UVIndex"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:id="@+id/progressBar"
-        android:max="11"
-        android:progress="7"
-        android:indeterminate="false"
-        android:progressDrawable="@drawable/progressbar"
-        android:layout_below="@+id/UVIndex"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/SkinDamage"
-        android:text="Expected Skin Damage:"
-        android:layout_below="@+id/progressBar"/>
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:id="@+id/dangerskin"
-        android:max="100"
-        android:progress="76"
-        android:indeterminate="false"
-        android:progressDrawable="@drawable/dangerzone"
-        android:layout_below="@id/SkinDamage"/>
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/SkinDamage"
+                android:text="Expected Skin Damage:"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dangerskin"
+                android:max="100"
+                android:progress="76"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/dangerzone"
+                android:padding="5dp" />
 
 
-<RelativeLayout
-android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/white"
-    android:layout_below="@+id/dangerskin">
-    <ImageView
 
-        android:id="@+id/heartImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="center"
-        android:src="@mipmap/heartbeat"
-        android:layout_alignParentTop="true"
+        </LinearLayout>
+    </LinearLayout>
 
- />
-    <TextView
-        android:layout_width="96dp"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:id="@+id/bpm"
-        android:text="75 BPM"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/heartImage"
- />
-    <ImageView
-        android:id="@+id/bodyTempImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/heartImage"
-        android:src="@drawable/bodytemp"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/bodyTemp"
-        android:layout_alignBottom="@+id/bodyTemp" />
-    <TextView
-        android:layout_width="96dp"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:id="@+id/bodyTemp"
-        android:text="36 C"
-        android:layout_below="@+id/heartImage"
-        android:layout_alignStart="@+id/bpm" />
-    <ImageView
-        android:id="@+id/outTempImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bodyTempImage"
-        android:src="@drawable/outtemp"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/outTemp"
-        android:layout_alignBottom="@+id/outTemp" />
-    <TextView
-        android:layout_width="96dp"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:id="@+id/outTemp"
-        android:text="23 C"
-        android:layout_below="@+id/bodyTempImage"
-        android:layout_toEndOf="@+id/bodyTempImage" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/dehydrationImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/outTempImage"
-        android:src="@drawable/dehydrated"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/dehydration"
-        android:layout_alignBottom="@+id/dehydration" />
-    <TextView
-        android:layout_width="96dp"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:id="@+id/dehydration"
-        android:text="0.487% Dehydration"
-        android:layout_below="@+id/outTempImage"
-        android:layout_toEndOf="@+id/outTempImage" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ageView"
-        android:layout_below="@id/dehydration"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/weightView"
-        android:layout_below="@id/ageView"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/heightView"
-        android:layout_below="@id/weightView"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/skinView"
-        android:layout_below="@id/heightView"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spfView"
-        android:layout_below="@id/skinView"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/heartImage"
+                    android:layout_height="60dp"
+                    android:src="@mipmap/heartbeat"
+                    android:layout_width="90dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/bpm"
+                    android:text="75 BPM"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/outTempImage"
+                    android:layout_width="90dp"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/bodyTempImage"
+                    android:src="@drawable/outtemp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/outTemp"
+                    android:layout_alignBottom="@+id/outTemp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/bodyTemp"
+                    android:text="36 C"
+                    android:layout_below="@+id/heartImage"
+                    android:layout_alignStart="@+id/bpm" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/bodyTempImage"
+                    android:layout_height="60dp"
+                    android:src="@drawable/bodytemp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="90dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
 
-</RelativeLayout>
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/outTemp"
+                    android:text="23 C" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/dehydrationImage"
+                    android:layout_width="90dp"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/outTempImage"
+                    android:src="@drawable/dehydrated" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/dehydration"
+                    android:text="0.487% Dehydration" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+<!--
+
+
+
+
+
+
+
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/ageView"
+           android:layout_below="@id/dehydration"/>
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/weightView"
+           android:layout_below="@id/ageView"/>
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/heightView"
+           android:layout_below="@id/weightView"/>
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/skinView"
+           android:layout_below="@id/heightView"/>
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/spfView"
+           android:layout_below="@id/skinView"/>
+
+   -->

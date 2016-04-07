@@ -148,7 +148,7 @@
                     android:id="@+id/outTempImage"
                     android:layout_width="90dp"
                     android:layout_height="60dp"
-                    android:layout_below="@id/bodyTempImage"
+                    android:layout_below="@+id/bodyTempImage"
                     android:src="@drawable/outtemp"
                     android:layout_alignParentLeft="true"
                     android:layout_toLeftOf="@+id/outTemp"

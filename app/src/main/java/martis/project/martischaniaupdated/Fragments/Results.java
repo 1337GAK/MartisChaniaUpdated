@@ -21,9 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nhaarman.supertooltips.ToolTip;
-import com.nhaarman.supertooltips.ToolTipRelativeLayout;
-import com.nhaarman.supertooltips.ToolTipView;
 
 import java.io.FileInputStream;
 import java.text.DecimalFormat;
@@ -38,8 +35,7 @@ public class Results extends Fragment {
 
 
     Runnable runnable;
-    private ToolTipView UVtooltip;
-    private ToolTipRelativeLayout mToolTipFrameLayout;
+
 
     float[] data;
     static public ProgressBar myProgress;

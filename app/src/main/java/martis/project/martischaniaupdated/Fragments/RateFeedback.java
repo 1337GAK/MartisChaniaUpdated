@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.makemyandroidapp.googleformuploader.GoogleFormUploader;
-
+import martis.project.martischaniaupdated.HttpRequest;
+import martis.project.martischaniaupdated.GoogleFormUploader;
 import martis.project.martischaniaupdated.R;
 
 /**

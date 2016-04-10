@@ -160,9 +160,9 @@ resultsHelp.resultsAHelp();          }
 
         } else if (id == R.id.about) {
             fm.beginTransaction().replace(R.id.content_frame, new AboutUs(),"ABOUT").addToBackStack(null).commit();
-        } else if (id == R.id.donate) {
+        } /*else if (id == R.id.donate) {
             fm.beginTransaction().replace(R.id.content_frame, new Donate(),"DONATE").addToBackStack(null).commit();
-        } else if (id == R.id.history) {
+        }*/ else if (id == R.id.history) {
             fm.beginTransaction().replace(R.id.content_frame, new History(),"HISTORY").addToBackStack(null).commit();
         } else if (id == R.id.bluetooth) {
             fm.beginTransaction().replace(R.id.content_frame, new Bluetooth(),"BLUETOOTH").addToBackStack(null).commit();

@@ -7,12 +7,12 @@ import android.util.Log;
  */
 public class Damage {
     //CUSTOM USER INPUT
-    public int spf;
-    private int age1;
-    private int skinType1;
-    private int UVRad1;
-    private float time1;
-    public float maxTimeExposure;
+        public int spf;
+        private int age1;
+        private int skinType1;
+        private int UVRad1;
+        private float time1;
+        public float maxTimeExposure;
 
 
 
@@ -49,6 +49,12 @@ public class Damage {
     public float skinDamage() {
         float skinDmg;
         int sunScreenEndurance = 120;
+        /*
+        *
+      TODO: Max 2 wres.
+        *
+        *
+        * */
         if (UVRad1 == 0) {
             UVRad1 = 1;
         }

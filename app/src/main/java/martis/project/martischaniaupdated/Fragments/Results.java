@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import java.text.DecimalFormat;
 
 import martis.project.martischaniaupdated.Damage;
 import martis.project.martischaniaupdated.R;
+import martis.project.martischaniaupdated.newDamage;
 
 /**
  * Created by GAK on 4/3/2016.
@@ -44,8 +46,10 @@ public class Results extends Fragment {
     TextView tempTextView;
     TextView tempOutText;
     TextView dehydration2;
-    Damage potentialDamage ;
+    newDamage potentialDamage ;
     AlertDialog.Builder  timeSet;
+    AlertDialog.Builder waterInput;
+    float water1;
     //  int flag=1;
     int flag25;
     int flag50;
@@ -163,13 +167,46 @@ public class Results extends Fragment {
 
         tempOutText = (TextView) view.findViewById(R.id.outTemp);  // UI Interaction. Sets environment temperature
         tempOutText.setText(outTemp + " °C");
-
         float fluids = (float) (-1.95403 + (0.0554441 * BMI) - (0.0228502 * Temp) + (0.0084186 * BPM) + 0.000370397 * (GSRCoefficient + GSR)); //Experimental algorithm for fluid loss calc
-        float dehydration1 = (100 * (1 - (weight - fluids) / weight)); // convert to %
+        dehydration2 = (TextView) view.findViewById(R.id.dehydration);
+        Log.i("Error","Water before dehydration calculation = "+water1);
+        float dehydration1 = (100 * (1 - (weight - fluids + water1) / weight)); // convert to %
+        final float staticDeh = dehydration1;
         DecimalFormat df = new DecimalFormat("###.###");
         String deh = (df.format(-dehydration1));
-        dehydration2 = (TextView) view.findViewById(R.id.dehydration);           // UI Interaction. Sets dehydration
-        dehydration2.setText(deh + "%");
+        dehydration2.setText(deh + "%");// UI Interaction. Sets dehydration
+        dehydration2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout waterLayout = new LinearLayout(getActivity());
+                waterLayout.setOrientation(LinearLayout.VERTICAL);
+                final EditText water = new EditText(getActivity());
+                water.setInputType(InputType.TYPE_CLASS_NUMBER);
+                waterLayout.addView(water);
+
+                waterInput = new AlertDialog.Builder(getActivity());
+                waterInput.setView(waterLayout);
+                waterInput.setTitle("Water Input");
+                waterInput.setMessage("Input amount of water you drank");
+                waterInput.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        water1 = Float.parseFloat(water.getText().toString());
+                        Log.i("Error","Water input = "+water1);
+                        dehydration2.setText(staticDeh+"%");
+                    }
+                });
+                waterInput.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+            waterInput.show();
+            }
+        });
+
         ambArm(Temp, outTemp);                                  // Function, compares 2 temps and shows if there is a chance of being sick
 
        /* TextView textAge = (TextView) view.findViewById(R.id.ageView);
@@ -195,35 +232,61 @@ public class Results extends Fragment {
         return view;
     }
     private void setTime() {
+        LinearLayout box = new LinearLayout(getActivity());
+        box.setOrientation(LinearLayout.VERTICAL);
+
         final EditText input = new EditText(getActivity());
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        box.addView(input);
+
+        final EditText spfinput = new EditText(getActivity());
+        spfinput.setInputType(InputType.TYPE_CLASS_NUMBER);
+        box.addView(spfinput);
+
         timeSet = new AlertDialog.Builder(getActivity());
-        timeSet.setView(input);
+        timeSet.setView(box);
         timeSet.setTitle("SetTime");
         timeSet.setMessage("Input expected time exposed to the sun");
-
 
         timeSet.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String t= input.getText().toString();
-                if (t.equals("")){t="1";}
+                String t = input.getText().toString();
+                if (t.equals("")) {
+                    t = "1";
+                }
                 time = Float.parseFloat(t);
-                Log.i("Error", time + "       ok button");
-                potentialDamage = new Damage(age, skinType, UVRad, time);
-                int dmg = (int) potentialDamage.skinDamage();
+                String spf123 = spfinput.getText().toString();
+                if (spf123.equals("")) {
+                    spf123 = "0";
+                }
+                int spfText = Integer.parseInt(spf123);
+                    Log.i("Error", time + "       ok button");
+                potentialDamage = new newDamage(age, skinType, UVRad, time, spfText);
+                int dmg;
+               // savedDmg(dmg);
+                dmg = (int) potentialDamage.skinDamage();
+
                 dangerSkinProgress.setProgress(dmg);
-                if (dmg >= 25) {
-                    float spfExposure = 4 * time;
+                if (spfText <= 10 && dmg >= 70){
+                    Toast.makeText(Results.this.getActivity(), "Consider putting on suncream with spf.", Toast.LENGTH_SHORT).show();
+                }else if (spfText >= 30 && dmg >= 70){
+                    Toast.makeText(Results.this.getActivity(), "You should expose yourself to the sun for less time.", Toast.LENGTH_SHORT).show();
+                }else if (dmg <=40){
+                    Toast.makeText(Results.this.getActivity(), "You are perfectly safe from the sun's rays", Toast.LENGTH_SHORT).show();
+                }else if(dmg >40 && dmg <=70 ){
+
+                }
+                /*if (dmg >= safePercent) {
+                    float spfExposure = (safePercent/100) * time;
                     spf = (int) (spfExposure / potentialDamage.maxTimeExposure * ((2 - (time / 120))));
                     potentialDamage.spf = spf;
                     dmg = (int) potentialDamage.skinDamage();
                     dangerSkinProgress.setProgress(dmg);
-                    Toast.makeText(Results.this.getActivity(), "Apply suncream of at least" + spf + " volume immediately", Toast.LENGTH_SHORT).show();
-                  //  TextView textSpf = (TextView) Results.this.getActivity().findViewById(R.id.spfView);
-                   //       textSpf.setText("Last Suncream SPF: " + spf);
+                    Toast.makeText(Results.this.getActivity(), "Apply suncream of at least" + spf + " volume immediately", Toast.LENGTH_SHORT).show();  //  TextView textSpf = (TextView) Results.this.getActivity().findViewById(R.id.spfView);
+                    //       textSpf.setText("Last Suncream SPF: " + spf);
 
-                }
+                }*/
 
 
             }
@@ -231,11 +294,7 @@ public class Results extends Fragment {
         timeSet.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                time = 1;
-                dangerSkinProgress.setProgress(0);
                 dialog.cancel();
-
-                Log.i("Error", time + "       cancel button");
             }
         });
         timeSet.show();
@@ -308,4 +367,13 @@ public class Results extends Fragment {
 
 
     }
+    /*
+    public float savedDmg(float dmg){
+        SharedPreferences dmgPrefs = Results.this.getActivity().getSharedPreferences("dmgPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editDmg = dmgPrefs.edit();
+        editDmg.putFloat("dmg",dmg);
+
+        float totalDmg = dmg+prevDmg;
+        return totalDmg;
+    }*/
 }

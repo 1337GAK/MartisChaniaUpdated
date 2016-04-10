@@ -15,6 +15,7 @@ import martis.project.martischaniaupdated.R;
  * Created by GAK on 4/3/2016.
  */
 public class Bluetooth  extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -23,6 +24,11 @@ public class Bluetooth  extends Fragment {
 
         TextView btFragment = (TextView) view.findViewById(R.id.bt);
         btFragment.setText("Bluetooth Fragment");
+
+
+
+
+
         return view;
     }
 }

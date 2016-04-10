@@ -1,10 +1,14 @@
 package martis.project.martischaniaupdated;
 
+import android.Manifest;
 import android.app.FragmentManager;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,11 +21,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import org.w3c.dom.Text;
 
 import java.lang.annotation.Target;
 
+import co.lujun.lmbluetoothsdk.BluetoothLEController;
+import co.lujun.lmbluetoothsdk.base.BluetoothLEListener;
+import co.lujun.lmbluetoothsdk.base.BluetoothListener;
 import martis.project.martischaniaupdated.Fragments.AboutUs;
 import martis.project.martischaniaupdated.Fragments.Bluetooth;
 import martis.project.martischaniaupdated.Fragments.Donate;
@@ -33,6 +39,9 @@ import martis.project.martischaniaupdated.Fragments.Settings;
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
+
+     BluetoothLEController mBLEController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +69,59 @@ public class Drawer extends AppCompatActivity
         View hview = navigationView.getHeaderView(0);
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame, new Results(),"RESULTS").commit();
+
+
+        mBLEController = BluetoothLEController.getInstance().build(this);
+
+        mBLEController.setBluetoothListener(new BluetoothLEListener() {
+
+            @Override
+            public void onReadData(final BluetoothGattCharacteristic characteristic) {
+                // Read data from BLE device.
+            }
+
+            @Override
+            public void onWriteData(final BluetoothGattCharacteristic characteristic) {
+                // When write data to remote BLE device, the notification will send to here.
+            }
+
+            @Override
+            public void onDataChanged(final BluetoothGattCharacteristic characteristic) {
+                // When data changed, the notification will send to here.
+            }
+
+            @Override
+            public void onActionStateChanged(int preState, int state) {
+                // Callback when bluetooth power state changed.
+            }
+
+            @Override
+            public void onActionDiscoveryStateChanged(String discoveryState) {
+                // Callback when local Bluetooth adapter discovery process state changed.
+            }
+
+            @Override
+            public void onActionScanModeChanged(int preScanMode, int scanMode) {
+                // Callback when the current scan mode changed.
+            }
+
+            @Override
+            public void onBluetoothServiceStateChanged(final int state) {
+                // Callback when the connection state changed.
+            }
+
+            @Override
+            public void onActionDeviceFound(final BluetoothDevice device, short rssi) {
+                // Callback when found device.
+            }
+        });
+
+
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 69);
+
+
+
 
 
     }
@@ -165,7 +227,16 @@ resultsHelp.resultsAHelp();          }
         } else if (id == R.id.history) {
             fm.beginTransaction().replace(R.id.content_frame, new History(),"HISTORY").addToBackStack(null).commit();
         } else if (id == R.id.bluetooth) {
-            fm.beginTransaction().replace(R.id.content_frame, new Bluetooth(),"BLUETOOTH").addToBackStack(null).commit();
+            //fm.beginTransaction().replace(R.id.content_frame, new Bluetooth(),"BLUETOOTH").addToBackStack(null).commit();
+
+            if(mBLEController.startScan()) {
+                System.out.print("Scan started");
+
+                mBLEController.connect("C8:A0:30:F6:E2:C5");
+
+            }
+
+
         } else if (id == R.id.rate) {
             fm.beginTransaction().replace(R.id.content_frame, new RateFeedback(),"RATE").addToBackStack(null).commit();
 

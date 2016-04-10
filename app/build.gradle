@@ -26,6 +26,8 @@ dependencies {
     compile 'com.android.support:design:23.2.1'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
 
+    compile 'co.lujun:lmbluetoothsdk:1.0.2'
+
 
 
 

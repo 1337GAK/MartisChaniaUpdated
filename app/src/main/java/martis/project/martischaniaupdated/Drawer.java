@@ -2,6 +2,7 @@ package martis.project.martischaniaupdated;
 
 import android.Manifest;
 import android.app.FragmentManager;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +26,8 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.lang.annotation.Target;
+import java.util.Set;
+import java.util.UUID;
 
 import co.lujun.lmbluetoothsdk.BluetoothLEController;
 import co.lujun.lmbluetoothsdk.base.BluetoothLEListener;
@@ -40,7 +44,8 @@ public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
 
-     BluetoothLEController mBLEController;
+    BluetoothLEController mBLEController;
+    String macAdress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,17 +82,28 @@ public class Drawer extends AppCompatActivity
 
             @Override
             public void onReadData(final BluetoothGattCharacteristic characteristic) {
-                // Read data from BLE device.
+                // Read data from BLE device
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String data = characteristic.getStringValue(0);
+                        Log.i("BLE","Read data " + data);
+                    }
+                });
             }
 
             @Override
             public void onWriteData(final BluetoothGattCharacteristic characteristic) {
                 // When write data to remote BLE device, the notification will send to here.
+                String data = characteristic.getStringValue(0);
+                Log.i("BLE","Write data " + data);
             }
 
             @Override
             public void onDataChanged(final BluetoothGattCharacteristic characteristic) {
                 // When data changed, the notification will send to here.
+
             }
 
             @Override
@@ -104,6 +120,8 @@ public class Drawer extends AppCompatActivity
             public void onActionScanModeChanged(int preScanMode, int scanMode) {
                 // Callback when the current scan mode changed.
             }
+
+
 
             @Override
             public void onBluetoothServiceStateChanged(final int state) {
@@ -200,6 +218,8 @@ resultsHelp.resultsAHelp();          }
                 return true;
             } else if (id == R.id.action_refresh) {
                 Toast.makeText(Drawer.this, "Refresh .java", Toast.LENGTH_SHORT).show();
+                String a = "100";
+                mBLEController.write(a.getBytes());
             }
 
             return super.onOptionsItemSelected(item);
@@ -229,12 +249,50 @@ resultsHelp.resultsAHelp();          }
         } else if (id == R.id.bluetooth) {
             //fm.beginTransaction().replace(R.id.content_frame, new Bluetooth(),"BLUETOOTH").addToBackStack(null).commit();
 
-            if(mBLEController.startScan()) {
-                System.out.print("Scan started");
+            if (mBLEController.getConnectionState() != BluetoothAdapter.STATE_CONNECTED) {
+                //Check if bluetooth is on
+                if (mBLEController.isEnabled()) {
+                    if (mBLEController.isSupportBLE()) {
+                        if (mBLEController.isAvailable()) {
+                            while (mBLEController.getBluetoothState() != BluetoothAdapter.STATE_ON) {
+                                //TODO :Add timeout timer
+                            }
 
-                mBLEController.connect("C8:A0:30:F6:E2:C5");
 
+                            if (mBLEController.startScan()) {
+                                Toast.makeText(Drawer.this, "Scan started", Toast.LENGTH_SHORT).show();
+
+                                Set<BluetoothDevice> devices = mBLEController.getBondedDevices();
+
+                                for (BluetoothDevice i : devices) {
+                                    //Log.i("BLE", i.getName());
+                                    if (i.getName().equals("Bluno")) {
+                                        macAdress = i.getAddress();
+                                        //Log.i("BLE", macAdress);
+                                    }
+                                }
+
+                                //TODO :Choose your own device
+                                mBLEController.connect(macAdress);
+                                while (mBLEController.getConnectionState() != BluetoothAdapter.STATE_CONNECTED) {
+
+                                }
+
+                            }
+                            mBLEController.cancelScan();
+
+                        } else {
+                            Toast.makeText(Drawer.this, "Bluetooth is not Available", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(Drawer.this, "Device does not support Bluetooth LE", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(Drawer.this, "Bluetooth is not Enabled", Toast.LENGTH_SHORT).show();
+                }
             }
+
+
 
 
         } else if (id == R.id.rate) {
@@ -247,6 +305,58 @@ resultsHelp.resultsAHelp();          }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+
+        mBLEController.disconnect();
+        mBLEController.release();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+
+        mBLEController.disconnect();
+        //mBLEController.release();
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(mBLEController.startScan()) {
+            //Log.i("BLE", "Reconnect onResume");
+            mBLEController.reConnect();
+        }
+        //mBLEController.cancelScan();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        mBLEController.disconnect();
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+
+        if(mBLEController.startScan()) {
+            mBLEController.reConnect();
+        }
+        //mBLEController.cancelScan();
+
+    }
+
 
 
 

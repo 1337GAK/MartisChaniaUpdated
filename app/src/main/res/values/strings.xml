@@ -30,4 +30,13 @@
     <string name="name">Georgios Konstantopoulos</string>
     <string name="email">geokonst95@gmail.com</string>
     <string name="back">Tap Back button again to exit</string>
+    <string name="resultshelp">Results Help:\n
+    UV Exposure bar: This bar shows the index value of the sun\'s UltraViolet rays, ranges from 1-11.
+        Be careful for values above 6.\n\n\n
+    Skin Danger bar: This bar shows the percentage of the damage your skin will take when exposed to
+    the sun for X minutes under Y SPF.\n\n\n
+    Heartrate: Shows your heartbeats per minute at the time of the readings.\n\n\n
+    Body Temperature: Shows your wrist\'s temperature.\n\n\n
+    Outside Temperature: Shows ambient temperature.\n\n\n
+    Dehydration: Shows the amount of fluids you have lost. Be careful for values above 1-2%.</string>
 </resources>

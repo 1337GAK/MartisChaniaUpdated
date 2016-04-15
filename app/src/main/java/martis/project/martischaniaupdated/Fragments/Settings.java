@@ -125,7 +125,6 @@ public class Settings extends Fragment {
         editText4.setText(SUV);
         int pos;
         pos= skinTonerg.indexOfChild(view.findViewById(skinTonerg.getCheckedRadioButtonId()));
-
         skinTonerg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -147,6 +146,15 @@ public class Settings extends Fragment {
                     message5 = editText4.getText().toString();
                     SharedPreferences userDetails = Settings.this.getActivity().getSharedPreferences("userdetails",Context.MODE_PRIVATE);
                     SharedPreferences.Editor edit = userDetails.edit();
+                    if (message1.equals("Set Age")){
+                        message1="1";
+                    }
+                    if (message2.equals("Set Weight")){
+                        message2="1";
+                    }
+                    if (message3.equals("Set Height")){
+                        message3="1";
+                    }
                     edit.putString("ageInput", message1);
                     edit.putString("weightInput", message2);
                     edit.putString("heightInput", message3);
@@ -170,9 +178,9 @@ public class Settings extends Fragment {
                 edit.putString("skinInput", "1");
                 edit.putString("UVInput", "1");
                 edit.commit();
-                setAge.setText("");
-                setWeight.setText("");
-                setHeight.setText("");
+                setAge.setText("Set Age");
+                setWeight.setText("Set Weight");
+                setHeight.setText("Set Height");
                 skinTonerg.check(skinTonerg.getChildAt(0).getId());
             }
         });

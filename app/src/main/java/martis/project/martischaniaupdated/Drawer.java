@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -50,8 +51,10 @@ public class Drawer extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drawer);
-         toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setContentView(R.layout.activity_drawer);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -74,6 +77,7 @@ public class Drawer extends AppCompatActivity
         View hview = navigationView.getHeaderView(0);
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame, new Results(),"RESULTS").commit();
+
 
 
         mBLEController = BluetoothLEController.getInstance().build(this);
@@ -103,22 +107,25 @@ public class Drawer extends AppCompatActivity
             @Override
             public void onDataChanged(final BluetoothGattCharacteristic characteristic) {
                 // When data changed, the notification will send to here.
-
+                Log.i("BLE","Data changed " + characteristic.getStringValue(0));
             }
 
             @Override
             public void onActionStateChanged(int preState, int state) {
                 // Callback when bluetooth power state changed.
+                Log.i("BLE","State changed from " + preState + " to " + state);
             }
 
             @Override
             public void onActionDiscoveryStateChanged(String discoveryState) {
                 // Callback when local Bluetooth adapter discovery process state changed.
+                Log.i("BLE", "Discovery state changed " + discoveryState);
             }
 
             @Override
             public void onActionScanModeChanged(int preScanMode, int scanMode) {
                 // Callback when the current scan mode changed.
+                Log.i("BLE", "Action scan mode changed from " + preScanMode +"to "+scanMode);
             }
 
 
@@ -126,11 +133,13 @@ public class Drawer extends AppCompatActivity
             @Override
             public void onBluetoothServiceStateChanged(final int state) {
                 // Callback when the connection state changed.
+                Log.i("BLE", "Bluetooth serivce state changed to " + state);
             }
 
             @Override
             public void onActionDeviceFound(final BluetoothDevice device, short rssi) {
                 // Callback when found device.
+                Log.i("BLE","Device found " + device.getName() + " "+rssi);
             }
         });
 
@@ -218,7 +227,7 @@ resultsHelp.resultsAHelp();          }
                 return true;
             } else if (id == R.id.action_refresh) {
                 Toast.makeText(Drawer.this, "Refresh .java", Toast.LENGTH_SHORT).show();
-                String a = "100";
+                String a = "55";
                 mBLEController.write(a.getBytes());
             }
 
@@ -279,7 +288,7 @@ resultsHelp.resultsAHelp();          }
                                 }
 
                             }
-                            mBLEController.cancelScan();
+                            //mBLEController.cancelScan();
 
                         } else {
                             Toast.makeText(Drawer.this, "Bluetooth is not Available", Toast.LENGTH_SHORT).show();
@@ -310,18 +319,20 @@ resultsHelp.resultsAHelp();          }
     protected void onDestroy() {
         super.onDestroy();
 
-
-        mBLEController.disconnect();
-        mBLEController.release();
+        if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_CONNECTED) {
+            //mBLEController.disconnect();
+            mBLEController.release();
+        }
     }
 
     @Override
     public void onPause(){
         super.onPause();
 
-
-        mBLEController.disconnect();
-        //mBLEController.release();
+        if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_CONNECTED) {
+            //mBLEController.disconnect();
+            mBLEController.release();
+        }
 
 
 
@@ -331,11 +342,13 @@ resultsHelp.resultsAHelp();          }
     public void onResume() {
         super.onResume();
 
-        if(mBLEController.startScan()) {
-            //Log.i("BLE", "Reconnect onResume");
-            mBLEController.reConnect();
+        if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_DISCONNECTED) {
+            if (mBLEController.startScan()) {
+                //Log.i("BLE", "Reconnect onResume");
+                mBLEController.reConnect();
+            }
+            //mBLEController.cancelScan();
         }
-        //mBLEController.cancelScan();
 
     }
 
@@ -343,17 +356,19 @@ resultsHelp.resultsAHelp();          }
     public void onStop() {
         super.onStop();
 
-        mBLEController.disconnect();
+        //mBLEController.disconnect();
     }
 
     @Override
     public void onRestart() {
         super.onRestart();
 
-        if(mBLEController.startScan()) {
-            mBLEController.reConnect();
+        if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_DISCONNECTED) {
+            if (mBLEController.startScan()) {
+                mBLEController.reConnect();
+            }
+            //mBLEController.cancelScan();
         }
-        //mBLEController.cancelScan();
 
     }
 

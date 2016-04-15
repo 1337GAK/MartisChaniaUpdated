@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -160,7 +161,7 @@ public class Results extends Fragment {
 
 
         heartTextView = (TextView) view.findViewById(R.id.bpm);  // UI Interaction. Sets BPM
-        heartTextView.setText(sBPM);
+        heartTextView.setText(sBPM+ " BPM");
 
         tempTextView = (TextView) view.findViewById(R.id.bodyTemp);       // UI Interaction. Sets skinTemperature
         tempTextView.setText(Temp + " °C");
@@ -237,16 +238,32 @@ public class Results extends Fragment {
 
         final EditText input = new EditText(getActivity());
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setText("Set time");
+        input.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
+                input.getText().clear();
+            }
+        });
         box.addView(input);
 
         final EditText spfinput = new EditText(getActivity());
+        spfinput.setText("Set SPF");
+        spfinput.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
+                spfinput.getText().clear();
+            }
+        });
         spfinput.setInputType(InputType.TYPE_CLASS_NUMBER);
         box.addView(spfinput);
+
 
         timeSet = new AlertDialog.Builder(getActivity());
         timeSet.setView(box);
         timeSet.setTitle("SetTime");
-        timeSet.setMessage("Input expected time exposed to the sun");
+        timeSet.setMessage("First dialog box:Input expected time exposed to the sun" +
+                "\nSecond dialog box:Input your suncream's sun protection factor");
 
         timeSet.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -362,10 +379,21 @@ public class Results extends Fragment {
             }
         }
     }
+
     public  void resultsAHelp(){
         Toast.makeText(Results.this.getActivity(), "RESULTS HELP 123", Toast.LENGTH_SHORT).show();
 
-
+        LayoutInflater layoutInflater= LayoutInflater.from(Results.this.getActivity());
+        View promptView =layoutInflater.inflate(R.layout.pop_up_results_help, null);
+        AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(Results.this.getActivity());
+        alertDialogBuilder.setView(promptView);
+        final TextView helpText = (TextView) promptView.findViewById(R.id.resultsHelp);
+        helpText.setText(R.string.resultshelp);
+        alertDialogBuilder.setCancelable(true);
+        AlertDialog alert = alertDialogBuilder.create();
+        promptView.setBackgroundDrawable(new ColorDrawable(
+                android.graphics.Color.TRANSPARENT));
+        alert.show();
     }
     /*
     public float savedDmg(float dmg){

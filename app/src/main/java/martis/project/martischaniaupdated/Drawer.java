@@ -185,7 +185,19 @@ public class Drawer extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.drawer, menu);
+        AboutUs aboutHelp = (AboutUs) getFragmentManager().findFragmentByTag("ABOUT");
+        RateFeedback rateHelp = (RateFeedback) getFragmentManager().findFragmentByTag("RATE");
+        Settings settingsHelp = (Settings) getFragmentManager().findFragmentByTag("SETTINGS");
+        Results resultsHelp = (Results) getFragmentManager().findFragmentByTag("RESULTS");
+       getMenuInflater().inflate(R.menu.drawer, menu);
+     /*   if ((aboutHelp != null && aboutHelp.isVisible()) || (rateHelp!= null && rateHelp.isVisible())) { TODO FRAGMENT MENU CHANGE
+            menu.findItem(R.id.action_refresh).setVisible(false);
+            menu.findItem(R.id.help).setVisible(false);
+        }else if  (settingsHelp != null && settingsHelp.isVisible()){
+            menu.findItem(R.id.action_refresh).setVisible(false);
+        } */
+
+
         return true;
     }
 

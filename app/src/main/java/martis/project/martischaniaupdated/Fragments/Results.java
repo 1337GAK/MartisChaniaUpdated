@@ -240,23 +240,11 @@ public class Results extends Fragment {
 
         final EditText input = new EditText(getActivity());
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        input.setText("Set time");
-        input.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                input.getText().clear();
-            }
-        });
+        input.setHint("Set time");
         box.addView(input);
 
         final EditText spfinput = new EditText(getActivity());
-        spfinput.setText("Set SPF");
-        spfinput.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                spfinput.getText().clear();
-            }
-        });
+        spfinput.setHint("Set SPF");
         spfinput.setInputType(InputType.TYPE_CLASS_NUMBER);
         box.addView(spfinput);
 

@@ -11,8 +11,6 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:text="Martis rating/feedback"
         android:inputType="textMultiLine"
         android:lines="8"
         android:background="@drawable/rectangle"

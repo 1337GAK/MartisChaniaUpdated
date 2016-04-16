@@ -35,12 +35,8 @@ public class RateFeedback extends Fragment {
         text.setText("Tell us your opinion after experiencing M.A.R.T.I.S., note the features that excited you and the ones that gave you a hard time, and let us know. " +
                 "We'll adapt to your needs in no time!");
         feed = (EditText) view.findViewById(R.id.feedText);
-        feed.setOnClickListener(new View.OnClickListener(){
-            @Override
-        public void onClick (View v){
-                feed.getText().clear();
-            }
-        });
+        feed.setHint("Martis feedback");
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Rate Us!");
         Button button = (Button) view.findViewById(R.id.feedButton);
         button.setOnClickListener(new View.OnClickListener() {

@@ -413,7 +413,7 @@ public class Results extends Fragment {
         helpText.setBackgroundColor(Color.TRANSPARENT);
 
         alertDialogBuilder.setCancelable(true);
-        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();

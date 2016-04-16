@@ -108,19 +108,19 @@ public class Settings extends Fragment {
 
         setAge= (TextView) view.findViewById(R.id.setage);
         if (textAge.equals("")){
-            setAge.setText("1");
+            setAge.setText("Set Age");
         }else{
             setAge.setText(textAge);
         }
         setWeight= (TextView) view.findViewById(R.id.setweight);
         if (textWeight.equals("")){
-            setWeight.setText("1");
+            setWeight.setText("Set Weight");
         }else {
             setWeight.setText(textWeight);
         }
         setHeight= (TextView) view.findViewById(R.id.setheight);
         if (textHeight.equals("")){
-            setHeight.setText("1");
+            setHeight.setText("Set Height");
         }else{
             setHeight.setText(textHeight);
         }
@@ -150,13 +150,13 @@ public class Settings extends Fragment {
                     SharedPreferences userDetails = Settings.this.getActivity().getSharedPreferences("userdetails",Context.MODE_PRIVATE);
                     SharedPreferences.Editor edit = userDetails.edit();
                     if (message1.equals("Set Age")){
-                        message1="1";
+                        message1="";
                     }
                     if (message2.equals("Set Weight")){
-                        message2="1";
+                        message2="";
                     }
                     if (message3.equals("Set Height")){
-                        message3="1";
+                        message3="";
                     }
                     edit.putString("ageInput", message1);
                     edit.putString("weightInput", message2);
@@ -219,7 +219,11 @@ public class Settings extends Fragment {
                     }
                 }
                 message1=String.valueOf(age);
-                setAge.setText(message1);
+                if (message1.equals("")){
+                    setAge.setText("Set Age");
+                }else{
+                    setAge.setText(message1);
+                }
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -246,12 +250,20 @@ public class Settings extends Fragment {
             public void onClick(DialogInterface dialog, int id) {
                 if (numPick.getValue()==1){
                     int kg;
-                    kg= (int) ((0.45)*(Float.parseFloat(weight.getText().toString())));
-                    message2=String.valueOf(kg);
+                    if (weight.getText().toString().equals("")){
+                        message2="";
+                    }else{
+                        kg= (int) ((0.45)*(Float.parseFloat(weight.getText().toString())));
+                        message2=String.valueOf(kg);
+                    }
                 }else{
                     message2=weight.getText().toString();
                 }
-                setWeight.setText(message2);
+                if (weight.getText().toString().equals("")){
+                    setWeight.setText("Set Weight");
+                }else{
+                    setWeight.setText(message2);
+                }
                 Toast.makeText(Settings.this.getActivity(), "Weight="+message2+" kg", Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -279,12 +291,20 @@ public class Settings extends Fragment {
             public void onClick(DialogInterface dialog, int id) {
                 if (numPick.getValue()==1){
                     int cm;
-                    cm=(int) ((2.54)*(Float.parseFloat(height.getText().toString())));
-                    message3=String.valueOf(cm);
+                    if (height.getText().toString().equals("")){
+                        message3="";
+                    }else{
+                        cm=(int) ((2.54)*(Float.parseFloat(height.getText().toString())));
+                        message3=String.valueOf(cm);
+                    }
                 }else{
                     message3=height.getText().toString();
                 }
-                setHeight.setText(message3);
+                if (height.getText().toString().equals("")){
+                    setHeight.setText("Set Height");
+                }else{
+                    setHeight.setText(message3);
+                }
                 Toast.makeText(Settings.this.getActivity(), "Height="+message3+" cm", Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

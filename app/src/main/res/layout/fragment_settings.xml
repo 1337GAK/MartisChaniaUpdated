@@ -207,34 +207,45 @@
                 android:gravity="center">
                 <RadioButton
                     android:id="@+id/skinTone1"
+                    android:button="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/skin_tone_1_selector" />
                 <RadioButton
                     android:id="@+id/skinTone2"
+                    android:button="@null"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/skin_tone_type2"/>
+                    android:background="@drawable/skin_tone_2_selector"/>
                 <RadioButton
                     android:id="@+id/skinTone3"
+                    android:button="@null"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/skin_tone_type3"/>
+                    android:background="@drawable/skin_tone_3_selector"/>
                 <RadioButton
                     android:id="@+id/skinTone4"
+                    android:button="@null"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/skin_tone_type4"/>
+                    android:background="@drawable/skin_tone_4_selector"/>
                 <RadioButton
                     android:id="@+id/skinTone5"
+                    android:button="@null"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/skin_tone_type5"/>
+                    android:background="@drawable/skin_tone_5_selector"/>
                 <RadioButton
                     android:id="@+id/skinTone6"
+                    android:button="@null"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/skin_tone_type6"/>
+                    android:background="@drawable/skin_tone_6_selector"/>
 
 
 
@@ -275,7 +286,9 @@
             android:text="//Extra Features to Be Added"
             android:id="@+id/textView2"
             android:layout_above="@+id/saveAll"
-            android:layout_alignEnd="@+id/skinTone" />
+            android:layout_alignEnd="@+id/skinTone"
+            android:textColor="#63e355"
+            android:textSize="15dp" />
 
     </LinearLayout>
 
@@ -301,7 +314,8 @@
                 android:id="@+id/saveAll"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/textView2" />
+                android:layout_alignEnd="@+id/textView2"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
@@ -320,7 +334,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_toEndOf="@+id/textView4"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_weight="1" />
         </LinearLayout>
 
     </LinearLayout>

@@ -6,15 +6,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -160,7 +163,7 @@ public class Results extends Fragment {
 
 
         heartTextView = (TextView) view.findViewById(R.id.bpm);  // UI Interaction. Sets BPM
-        heartTextView.setText(sBPM);
+        heartTextView.setText(sBPM+ " BPM");
 
         tempTextView = (TextView) view.findViewById(R.id.bodyTemp);       // UI Interaction. Sets skinTemperature
         tempTextView.setText(Temp + " °C");
@@ -237,16 +240,20 @@ public class Results extends Fragment {
 
         final EditText input = new EditText(getActivity());
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setHint("Set time");
         box.addView(input);
 
         final EditText spfinput = new EditText(getActivity());
+        spfinput.setHint("Set SPF");
         spfinput.setInputType(InputType.TYPE_CLASS_NUMBER);
         box.addView(spfinput);
+
 
         timeSet = new AlertDialog.Builder(getActivity());
         timeSet.setView(box);
         timeSet.setTitle("SetTime");
-        timeSet.setMessage("Input expected time exposed to the sun");
+        timeSet.setMessage("First dialog box:Input expected time exposed to the sun" +
+                "\nSecond dialog box:Input your suncream's sun protection factor");
 
         timeSet.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -362,10 +369,47 @@ public class Results extends Fragment {
             }
         }
     }
+
     public  void resultsAHelp(){
-        Toast.makeText(Results.this.getActivity(), "RESULTS HELP 123", Toast.LENGTH_SHORT).show();
 
+        LayoutInflater layoutInflater= LayoutInflater.from(Results.this.getActivity());
+        View promptView =layoutInflater.inflate(R.layout.pop_up_results_help, null);
 
+        AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(Results.this.getActivity());
+        alertDialogBuilder.setView(promptView);
+
+        WebView helpText = (WebView) promptView.findViewById(R.id.resultsHelp);
+        //helpText.setText(R.string.resultshelp);
+       // helpText.setBackgroundColor(Color.TRANSPARENT);
+
+         final String htmlText ="<body style=\"text-align:justify\">" + "<h1><b>Results Help:</b></h1>\n\n" +
+        "    <h2><b>UV Exposure bar:</b></h2>\n\n" +
+                "        This bar shows the index value of the sun\'s UltraViolet rays, ranges from 1-11.\n" +
+                "        Be careful for values above 6.\n\n" +
+                "\n" +
+                "    <h2><b>Skin Danger bar:</b></h2> \n\n" +
+                "        This bar shows the percentage of the damage your skin will take when exposed to\n" +
+                "    the sun for X minutes under Y SPF.\n\n\n\n" +
+                "\n" +
+                "  <h2> <b> Heartrate:</b></h2>\n Shows your heartbeats per minute at the time of the readings.\n" +
+                "   <h2><b>Body Temperature:</b></h2> \nShows your wrist\'s temperature.\n\n\n\n" +
+                "   <h2><b> Outside Temperature: </b></h2>\nShows ambient temperature.\n" +
+                "   <h2> <b>Dehydration:</b></h2> Shows the amount of fluids you have lost. Be careful for values above 1-2%.</body>";
+       // helpText.setText(Html.fromHtml(htmlText));
+
+        helpText.loadData(htmlText, "text/html", "utf-8");
+        helpText.setBackgroundColor(Color.TRANSPARENT);
+
+        alertDialogBuilder.setCancelable(true);
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = alertDialogBuilder.create();
+        promptView.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alert.show();
     }
     /*
     public float savedDmg(float dmg){

@@ -5,23 +5,23 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="about">Η Ελλάδα είναι μια χώρα με πολύ έντονη ηλιοφάνεια ιδιαίτερα το καλοκαίρι ενώ ταυτόχρονα πολλοί άνθρωποι υποτιμούν τις συνέπειες της συνεχούς έκθεσης στον ήλιο και την αναγκαιότητα συνεχούς ενυδάτωσης τους. Για αυτόν τον λόγο υλοποιήσαμε το Project MARTIS. Κύριος σκοπός του, να προστατέψει τους χρήστες από την υπερέκθεση στην ηλιακή ακτινοβολία αλλά και την αφυδάτωση.\n
-        Η ομάδα αποτελείται απο τα εξής μέλη:\n
-    Γραικός Αλέξανδρος:\n
+    <string name="about">Η Ελλάδα είναι μια χώρα με πολύ έντονη ηλιοφάνεια ιδιαίτερα το καλοκαίρι ενώ ταυτόχρονα πολλοί άνθρωποι υποτιμούν τις συνέπειες της συνεχούς έκθεσης στον ήλιο και την αναγκαιότητα συνεχούς ενυδάτωσης τους. Για αυτόν τον λόγο υλοποιήσαμε το Project MARTIS. Κύριος σκοπός του, να προστατέψει τους χρήστες από την υπερέκθεση στην ηλιακή ακτινοβολία αλλά και την αφυδάτωση.\n\n
+        Η ομάδα αποτελείται απο τα εξής μέλη:\n\n
+    <b>Γραικός Αλέξανδρος:</b>\n
 \u2022Συνδεσμολογία Arduino-αισθητήρων\n
 \u2022Ακρίβεια μετρήσεων heart rate και GSR\n
-\u2022Υλοποίηση hardware\n
-Δέλλιος Ιωάννης:\n
+\u2022Υλοποίηση hardware\n\n
+<b>Δέλλιος Ιωάννης:</b>\n
 \u2022Υπεύθυνος έρευνας \n
 \u2022Σχεδιασμός αλγορίθμων\n
-\u2022Ακρίβεια μετρήσεων heart rate και UV ακτινοβολίας\n
-Καραπατσιάς Βασίλειος:\n
+\u2022Ακρίβεια μετρήσεων heart rate και UV ακτινοβολίας\n\n
+<b>Καραπατσιάς Βασίλειος:</b>\n
 \u2022Υλοποιήση hardware\n
-\u2022Aκρίβεια μετρήσεων UV ακτινοβολίας και θερμοκρασίας\n
-Κεραμάρης Κωνσταντίνος:\n
+\u2022Aκρίβεια μετρήσεων UV ακτινοβολίας και θερμοκρασίας\n\n
+<b>Κεραμάρης Κωνσταντίνος:</b>\n
 \u2022Ανάπτυξη εφαρμογής Android\n
-\u2022Υπεύθυνος υλικού επεξεργασίας hardware\n
-Κωνσταντόπουλος Γεώργιος:\n
+\u2022Υπεύθυνος υλικού επεξεργασίας hardware\n\n
+<b>Κωνσταντόπουλος Γεώργιος:</b>\n
 \u2022Ανάπτυξη εφαρμογής Android\n
 \u2022Υπεύθυνος γραφικόυ σχεδιασμού\n
 \u2022Διασύνδεση Arduino-εφαρμογής μέσω Bluetooth
@@ -30,4 +30,18 @@
     <string name="name">Georgios Konstantopoulos</string>
     <string name="email">geokonst95@gmail.com</string>
     <string name="back">Tap Back button again to exit</string>
+    <string name="resultshelp">
+       <body style="text-align:justify"><h1><b>Results Help:</b></h1>\\n\n" +
+                "    <h2><b>UV Exposure bar:</b></h2>\n\n" +
+                "        <h3>This bar shows the index value of the sun\'s UltraViolet rays, ranges from 1-11.\n" +
+                "        Be careful for values above 6.\n\\n\\n</h3>\n" +
+                "\n" +
+                "    <h2><b>Skin Danger bar:</b></h2> \n\n" +
+                "        This bar shows the percentage of the damage your skin will take when exposed to\n" +
+                "    the sun for X minutes under Y SPF.\n\n\n\n" +
+                "\n" +
+                "  <h2> <b> Heartrate:</b></h2>\n Shows your heartbeats per minute at the time of the readings.\\n\\n\\n\n" +
+                "   <h2><b>Body Temperature:</b></h2> \nShows your wrist\'s temperature.\n\n\n\n" +
+                "   <h2><b> Outside Temperature: </b></h2> \\nShows ambient temperature.\\n\\n\\n\n" +
+                "   <h2> <b>Dehydration:</b></h2> \\n Shows the amount of fluids you have lost. Be careful for values above 1-2%.</body></string>
 </resources>

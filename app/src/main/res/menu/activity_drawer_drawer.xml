@@ -14,10 +14,10 @@
             android:id="@+id/bluetooth"
             android:icon="@drawable/ic_settings_bluetooth_black_24dp"
             android:title="Bluetooth" />
-        <item
+        <!-- <item
             android:id="@+id/history"
             android:icon="@drawable/ic_history_black_24dp"
-            android:title="History" />
+            android:title="History" /> -->
     </group>
 
     <item android:title="Communicate">

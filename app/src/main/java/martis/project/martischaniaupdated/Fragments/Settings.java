@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -293,5 +296,46 @@ public class Settings extends Fragment {
         AlertDialog alert= alertDialogBuilder.create();
         alert.show();
     }
+
+    public  void settingsAHelp(){
+
+        LayoutInflater layoutInflater= LayoutInflater.from(Settings.this.getActivity());
+        View promptView =layoutInflater.inflate(R.layout.pop_up_settings_help, null);
+
+        AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(Settings.this.getActivity());
+        alertDialogBuilder.setView(promptView);
+
+        WebView helpText = (WebView) promptView.findViewById(R.id.settingsHelp);
+        //helpText.setText(R.string.resultshelp);
+      //  helpText.setBackgroundColor(Color.TRANSPARENT);
+
+        final String htmlText ="<body style=\"text-align:justify\"><h1><b>Settings Help:</b></h1>\n\n" +
+                "    <h2><b>Age Weight and Height Pickers:</b></h2>\n\n" +
+                "        Input your date of birth, weight and height. \n\n" +
+                "\n" +
+                "    <h2><b>Skin Tone: </b></h2> \n\n" +
+                "       Choose the skin radio button that matches your skin better. " +
+                "For more detail, refer to the Fitzpatrick scale to find your exact skin tone on a range from 1 to 6." +
+                "\n\n<h2>Extras:</h2>\n" +
+ "More info on how to calculate your skin tone in the Fitzpatrick scale: \n " +
+                " <a href=\"http:/imgur.com/Dwbno78\">Fitzpatrick skin tone calculation </a>\n" +
+        "\n\rDo not forget to hit Save All When entering your info for the first time, hit Clear All to avoid any previous data being used"
+                + "</body>";
+        // helpText.setText(Html.fromHtml(htmlText));
+        helpText.loadData(htmlText, "text/html", "utf-8");
+        helpText.setBackgroundColor(Color.TRANSPARENT);
+
+        alertDialogBuilder.setCancelable(true);
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = alertDialogBuilder.create();
+        promptView.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alert.show();
+    }
+
 
 }

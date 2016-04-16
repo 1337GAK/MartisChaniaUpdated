@@ -51,7 +51,7 @@ public class Drawer extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_drawer);
+        setContentView(R.layout.activity_drawer);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -207,10 +207,10 @@ public class Drawer extends AppCompatActivity
             History historyHelp = (History) getFragmentManager().findFragmentByTag("HISTORY");
 
             if (settingsHelp != null && settingsHelp.isVisible()) {
-                Toast.makeText(Drawer.this, "SETTINGS HELP", Toast.LENGTH_SHORT).show();
+                        settingsHelp.settingsAHelp();
 
             } else if (resultsHelp != null && resultsHelp.isVisible()) {
-resultsHelp.resultsAHelp();          }
+                        resultsHelp.resultsAHelp();          }
                 else if (donateHelp != null && donateHelp.isVisible()) {
                     Toast.makeText(Drawer.this, "DONATE HELP", Toast.LENGTH_SHORT).show();
                 } else if (aboutHelp != null && aboutHelp.isVisible()) {
@@ -253,9 +253,11 @@ resultsHelp.resultsAHelp();          }
             fm.beginTransaction().replace(R.id.content_frame, new AboutUs(),"ABOUT").addToBackStack(null).commit();
         } /*else if (id == R.id.donate) {
             fm.beginTransaction().replace(R.id.content_frame, new Donate(),"DONATE").addToBackStack(null).commit();
-        }*/ else if (id == R.id.history) {
+        } else if (id == R.id.history) {
+
             fm.beginTransaction().replace(R.id.content_frame, new History(),"HISTORY").addToBackStack(null).commit();
-        } else if (id == R.id.bluetooth) {
+        }*/
+            else if (id == R.id.bluetooth) {
             //fm.beginTransaction().replace(R.id.content_frame, new Bluetooth(),"BLUETOOTH").addToBackStack(null).commit();
 
             if (mBLEController.getConnectionState() != BluetoothAdapter.STATE_CONNECTED) {

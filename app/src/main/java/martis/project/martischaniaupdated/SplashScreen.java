@@ -1,5 +1,6 @@
 package martis.project.martischaniaupdated;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import martis.project.martischaniaupdated.Fragments.Results;
 /**
  * Created by GAK on 4/15/2016.*/
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends Activity {
     private final static int REQUEST_ENABLE_BT = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

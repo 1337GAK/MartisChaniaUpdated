@@ -202,7 +202,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="1"
-                android:layout_below="@+id/textView3"
                 android:layout_alignParentStart="true"
                 android:gravity="center">
                 <RadioButton
@@ -256,7 +255,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+   <!--  <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -290,7 +289,7 @@
             android:textColor="#63e355"
             android:textSize="15dp" />
 
-    </LinearLayout>
+    </LinearLayout> -->
 
     <LinearLayout
         android:orientation="horizontal"

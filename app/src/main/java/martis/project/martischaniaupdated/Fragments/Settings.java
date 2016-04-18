@@ -62,7 +62,7 @@ public class Settings extends Fragment {
         String textWeight = userDetails.getString("weightInput", "");
         String textHeight = userDetails.getString("heightInput", "");
         String textSkin = userDetails.getString("skinInput","1");
-        String SUV = userDetails.getString("UVInput", "5");
+       // String SUV = userDetails.getString("UVInput", "5");
         skinTonerg = (RadioGroup) view.findViewById(R.id.skinTone);
         setAge = (TextView) view.findViewById(R.id.setage);
         setAge.setOnClickListener(new View.OnClickListener() {
@@ -124,8 +124,8 @@ public class Settings extends Fragment {
         }else{
             setHeight.setText(textHeight);
         }
-        editText4= (EditText) view.findViewById(R.id.UV);
-        editText4.setText(SUV);
+        //= (EditText) view.findViewById(R.id.UV);
+        //editText4.setText(SUV);
         int pos;
         pos= skinTonerg.indexOfChild(view.findViewById(skinTonerg.getCheckedRadioButtonId()));
         skinTonerg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -146,7 +146,7 @@ public class Settings extends Fragment {
                     message1= (String) setAge.getText();
                     message2= (String) setWeight.getText();
                     message3= (String) setHeight.getText();
-                    message5 = editText4.getText().toString();
+                    //message5 = editText4.getText().toString();
                     SharedPreferences userDetails = Settings.this.getActivity().getSharedPreferences("userdetails",Context.MODE_PRIVATE);
                     SharedPreferences.Editor edit = userDetails.edit();
                     if (message1.equals("Set Age")){
@@ -162,7 +162,7 @@ public class Settings extends Fragment {
                     edit.putString("weightInput", message2);
                     edit.putString("heightInput", message3);
                     edit.putString("skinInput", message4);
-                    edit.putString("UVInput", message5);
+                   // edit.putString("UVInput", message5);
                     edit.commit();
                     Toast.makeText(Settings.this.getActivity(), "All Data Saved" ,Toast.LENGTH_SHORT).show();
 
@@ -179,7 +179,7 @@ public class Settings extends Fragment {
                 edit.putString("weightInput", "");
                 edit.putString("heightInput", "");
                 edit.putString("skinInput", "1");
-                edit.putString("UVInput", "1");
+                //edit.putString("UVInput", "1");
                 edit.commit();
                 setAge.setText("Set Age");
                 setWeight.setText("Set Weight");
@@ -346,7 +346,7 @@ public class Settings extends Fragment {
         helpText.setBackgroundColor(Color.TRANSPARENT);
 
         alertDialogBuilder.setCancelable(true);
-        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();

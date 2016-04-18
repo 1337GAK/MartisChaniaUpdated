@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,6 +46,9 @@ public class Results extends Fragment {
     float[] data;
     static public ProgressBar myProgress;
     ProgressBar dangerSkinProgress;
+    String readings;
+
+    TextView showExtras;
     TextView heartTextView;
     TextView tempTextView;
     TextView tempOutText;
@@ -66,12 +70,11 @@ public class Results extends Fragment {
     int UVRad;
 
     int GSRCoefficient = 200;
-    static  int spf;
-    int BPM = 77;
-    float Temp = (float) 28;
-    float outTemp = (float) 21.5;
-    float GSR = 400;
-
+    /* static  int spf; */
+    int BPM ;
+    float Temp;
+    float outTemp;
+    float GSR;
 
 
 
@@ -84,6 +87,8 @@ public class Results extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_results,null);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Project M.A.R.T.I.S.");
+
+
 
 
 
@@ -135,8 +140,36 @@ public class Results extends Fragment {
         float height = height1 * ((float) 0.01);
         String Sskin = userDetails.getString("skinInput", "5");
         skinType = Integer.parseInt(Sskin);
-        String SUV = userDetails.getString("UVInput", "5");
+       // String SUV = userDetails.getString("UVInput", "5");
+
+
+        //showExtras = (TextView) view.findViewById(R.id.extras);
+
+        //showExtras.setText(readings);
         // int UVRad;
+
+        SharedPreferences savedData = Results.this.getActivity().getSharedPreferences("data" , Context.MODE_PRIVATE);
+        String readings = savedData.getString("userData","0832.522.10600085");
+        //String readings = "0832.522.11234120";
+
+
+        String SUV = readings.substring(0,2);
+        String outterTemp = readings.substring(2,6);
+        String temp =readings.substring(6,10);
+        String gsr = readings.substring(10,14);
+        String bpm = readings.substring(14,17);
+
+        BPM = Integer.parseInt(bpm);
+        Temp = Float.parseFloat(temp);
+        outTemp = Float.parseFloat(outterTemp);
+        GSR = Integer.parseInt(gsr);
+        //Log.i("Error", "gak " + SUV +" "+ outterTemp +" "+ temp+" " + gsr+" " + bpm );
+
+
+
+
+
+
         if (SUV == "") {
             UVRad = 1;
         } else {
@@ -231,9 +264,10 @@ public class Results extends Fragment {
 
 
 
-
         return view;
     }
+
+
     private void setTime() {
         LinearLayout box = new LinearLayout(getActivity());
         box.setOrientation(LinearLayout.VERTICAL);
@@ -305,6 +339,9 @@ public class Results extends Fragment {
             }
         });
         timeSet.show();
+
+
+
     }
     private float[] readFromFile(String fileName) {          //Pass data from textfile to variables. Designed for 5 slot float table
         FileInputStream fileInput;
@@ -420,4 +457,6 @@ public class Results extends Fragment {
         float totalDmg = dmg+prevDmg;
         return totalDmg;
     }*/
+
+
 }

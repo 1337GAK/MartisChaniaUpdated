@@ -47,6 +47,7 @@ public class RateFeedback extends Fragment {
                 GoogleFormUploader uploader = new GoogleFormUploader("1SDQLI4yKvFLY7slJDrnDJhN_heVYstU4NqY9QbmcvwU");
                 uploader.addEntry("92935924", text);
                 uploader.upload();
+                Toast.makeText(RateFeedback.this.getActivity(), "Feedback sent! Thanks for taking the time to evaluate M.A.R.T.I.S.", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -328,10 +328,10 @@ public class Drawer extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
 
-        if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_CONNECTED) {
+      /*  if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_CONNECTED) {
             //mBLEController.disconnect();
-            mBLEController.release();
-        }
+           mBLEController.release();
+        }*/
     }
 
     @Override

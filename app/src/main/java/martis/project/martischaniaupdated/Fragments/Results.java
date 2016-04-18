@@ -70,16 +70,12 @@ public class Results extends Fragment {
     int UVRad;
 
     int GSRCoefficient = 200;
-    static  int spf;
-    int BPM = 77;
-    float Temp = (float) 28;
-    float outTemp = (float) 21.5;
-    float GSR = 400;
-    String cancer = "0123456789012";
-    char totalCancer[] = cancer.toCharArray();
-    String cancer1 = "" + totalCancer[0]+totalCancer[1];
-    String cancer2 = "" + totalCancer[2]+totalCancer[3];
-    SharedPreferences savedData;
+    /* static  int spf; */
+    int BPM ;
+    float Temp;
+    float outTemp;
+    float GSR;
+
 
 
 
@@ -91,8 +87,7 @@ public class Results extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_results,null);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Project M.A.R.T.I.S.");
-        Log.i("Error", cancer1 + " ahhah " +cancer2);
-        Log.i("Error", ""+totalCancer[5]);
+
 
 
 
@@ -145,8 +140,36 @@ public class Results extends Fragment {
         float height = height1 * ((float) 0.01);
         String Sskin = userDetails.getString("skinInput", "5");
         skinType = Integer.parseInt(Sskin);
-        String SUV = userDetails.getString("UVInput", "5");
+       // String SUV = userDetails.getString("UVInput", "5");
+
+
+        //showExtras = (TextView) view.findViewById(R.id.extras);
+
+        //showExtras.setText(readings);
         // int UVRad;
+
+        SharedPreferences savedData = Results.this.getActivity().getSharedPreferences("data" , Context.MODE_PRIVATE);
+        String readings = savedData.getString("userData","0832.522.10600085");
+        //String readings = "0832.522.11234120";
+
+
+        String SUV = readings.substring(0,2);
+        String outterTemp = readings.substring(2,6);
+        String temp =readings.substring(6,10);
+        String gsr = readings.substring(10,14);
+        String bpm = readings.substring(14,17);
+
+        BPM = Integer.parseInt(bpm);
+        Temp = Float.parseFloat(temp);
+        outTemp = Float.parseFloat(outterTemp);
+        GSR = Integer.parseInt(gsr);
+        //Log.i("Error", "gak " + SUV +" "+ outterTemp +" "+ temp+" " + gsr+" " + bpm );
+
+
+
+
+
+
         if (SUV == "") {
             UVRad = 1;
         } else {
@@ -237,11 +260,7 @@ public class Results extends Fragment {
             }
         });
 
-        SharedPreferences savedData = Results.this.getActivity().getSharedPreferences("data" , Context.MODE_PRIVATE);
-        readings = savedData.getString("userData","asdfqwerty");
-        showExtras = (TextView) view.findViewById(R.id.extras);
 
-        showExtras.setText(readings);
 
 
 

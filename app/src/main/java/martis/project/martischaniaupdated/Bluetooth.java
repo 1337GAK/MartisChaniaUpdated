@@ -23,6 +23,7 @@ import martis.project.martischaniaupdated.Fragments.Results;
 public class Bluetooth  extends BlunoLibrary{
     private Button buttonScan;
     private Button buttonSerialSend;
+    private Button buttonCalibrate;
     private EditText serialSendText;
     private TextView serialReceivedText;
     Toolbar toolbar;
@@ -41,8 +42,8 @@ public class Bluetooth  extends BlunoLibrary{
 
         serialBegin(115200);													//set the Uart Baudrate on BLE chip to 115200
 
-        serialReceivedText=(TextView) findViewById(R.id.serialReveicedText);	//initial the EditText of the received data
-        serialSendText=(EditText) findViewById(R.id.serialSendText);			//initial the EditText of the sending data
+       // serialReceivedText=(TextView) findViewById(R.id.serialReveicedText);	//initial the EditText of the received data
+        //serialSendText=(EditText) findViewById(R.id.serialSendText);			//initial the EditText of the sending data
 
         buttonSerialSend = (Button) findViewById(R.id.buttonSerialSend);		//initial the button for sending the data
         buttonSerialSend.setOnClickListener(new OnClickListener() {
@@ -51,7 +52,21 @@ public class Bluetooth  extends BlunoLibrary{
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                serialSend(serialSendText.getText().toString());				//send the data to the BLUNO
+               // serialSend(serialSendText.getText().toString());				//send the data to the BLUNO
+                serialSend("m");
+                Toast.makeText(Bluetooth.this, "Measurements received! Go to Results and hit the Refresh button!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        buttonCalibrate = (Button) findViewById(R.id.buttonCalibrate);
+        buttonCalibrate.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                // serialSend(serialSendText.getText().toString());				//send the data to the BLUNO
+                serialSend("c");
+                Toast.makeText(Bluetooth.this, "Calibrated!", Toast.LENGTH_SHORT).show();
             }
         });
 

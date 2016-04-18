@@ -11,7 +11,7 @@
     android:focusableInTouchMode="true">
 
 
-    <ScrollView
+    <!-- <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView"
@@ -31,17 +31,11 @@
             android:layout_alignStart="@+id/editText2"
             android:layout_alignEnd="@+id/serialSendText"
             android:layout_alignParentBottom="true" />
-    </ScrollView>
+    </ScrollView> -->
 
-    <Button
-        android:id="@+id/buttonSerialSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/serialSendText"
-        android:layout_alignRight="@+id/serialSendText"
-        android:text="Send Data" />
 
-    <TextView
+
+   <!--  <TextView
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,14 +59,34 @@
         android:inputType="text"
         android:text="Data sending Area"
         android:textColor="#999999"
-        android:textSize="20dip" />
+        android:textSize="20dip" /> -->
 
     <Button
         android:id="@+id/buttonScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/serialSendText"
-        android:layout_alignParentTop="true"
-        android:text="Scan" />
+        android:text="Scan"
+        android:layout_above="@+id/buttonCalibrate"
+        android:layout_alignStart="@+id/buttonCalibrate"
+        android:layout_alignEnd="@+id/buttonCalibrate" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCalibrate"
+        android:text="Calibrate"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/buttonSerialSend"
+        android:layout_alignEnd="@+id/buttonSerialSend" />
+    <Button
+        android:id="@+id/buttonSerialSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Measure"
+        android:layout_below="@+id/buttonCalibrate"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="71dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="80dp" />
 
 </RelativeLayout>

@@ -29,6 +29,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Bluetooth"
+            android:label="BT"
+           android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Drawer" />
+
+        </activity>
+        <service android:name="martis.project.martischaniaupdated.BluetoothLeService" android:enabled="true"/>
+
     </application>
 
 </manifest>

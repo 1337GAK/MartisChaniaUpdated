@@ -1,17 +1,11 @@
 package martis.project.martischaniaupdated;
 
-import android.Manifest;
 import android.app.FragmentManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGattCharacteristic;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,30 +15,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.lang.annotation.Target;
 import java.util.Set;
-import java.util.UUID;
 
 import co.lujun.lmbluetoothsdk.BluetoothLEController;
-import co.lujun.lmbluetoothsdk.base.BluetoothLEListener;
-import co.lujun.lmbluetoothsdk.base.BluetoothListener;
 import martis.project.martischaniaupdated.Fragments.AboutUs;
-import martis.project.martischaniaupdated.Fragments.Bluetooth;
 import martis.project.martischaniaupdated.Fragments.Donate;
 import martis.project.martischaniaupdated.Fragments.History;
 import martis.project.martischaniaupdated.Fragments.RateFeedback;
 import martis.project.martischaniaupdated.Fragments.Results;
 import martis.project.martischaniaupdated.Fragments.Settings;
 
+/*import martis.project.martischaniaupdated.BlunoLibrary;
+import martis.project.martischaniaupdated.BluetoothLeService;
+import martis.project.martischaniaupdated.RingBuffer;*/
+
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
-
+    BlunoLibrary test;
     BluetoothLEController mBLEController;
     String macAdress;
 
@@ -80,7 +70,7 @@ public class Drawer extends AppCompatActivity
 
 
 
-        mBLEController = BluetoothLEController.getInstance().build(this);
+       /*  mBLEController = BluetoothLEController.getInstance().build(this);
 
         mBLEController.setBluetoothListener(new BluetoothLEListener() {
 
@@ -146,7 +136,7 @@ public class Drawer extends AppCompatActivity
 
 
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 69);
-
+*/
 
 
 
@@ -215,7 +205,7 @@ public class Drawer extends AppCompatActivity
             Donate donateHelp = (Donate) getFragmentManager().findFragmentByTag("DONATE");
             AboutUs aboutHelp = (AboutUs) getFragmentManager().findFragmentByTag("ABOUT");
             RateFeedback rateHelp = (RateFeedback) getFragmentManager().findFragmentByTag("RATE");
-            Bluetooth bluetoothHelp = (Bluetooth) getFragmentManager().findFragmentByTag("BLUETOOTH");
+      //      Bluetooth bluetoothHelp = (Bluetooth) getFragmentManager().findFragmentByTag("BLUETOOTH");
             History historyHelp = (History) getFragmentManager().findFragmentByTag("HISTORY");
 
             if (settingsHelp != null && settingsHelp.isVisible()) {
@@ -229,18 +219,18 @@ public class Drawer extends AppCompatActivity
                     Toast.makeText(Drawer.this, "ABOUT HELP", Toast.LENGTH_SHORT).show();
                 } else if (rateHelp != null && rateHelp.isVisible()) {
                     Toast.makeText(Drawer.this, "RATE HELP", Toast.LENGTH_SHORT).show();
-                } else if (bluetoothHelp != null && bluetoothHelp.isVisible()) {
+                }/* else if (bluetoothHelp != null && bluetoothHelp.isVisible()) {
                     Toast.makeText(Drawer.this, "BLUETOOTH HELP", Toast.LENGTH_SHORT).show();
-                } else if (historyHelp != null && historyHelp.isVisible()) {
+                } */
+                    else if (historyHelp != null && historyHelp.isVisible()) {
                     Toast.makeText(Drawer.this, "HISTORY HELP", Toast.LENGTH_SHORT).show();
                 }
 
 
                 return true;
             } else if (id == R.id.action_refresh) {
-                Toast.makeText(Drawer.this, "Refresh .java", Toast.LENGTH_SHORT).show();
-                String a = "55";
-                mBLEController.write(a.getBytes());
+            FragmentManager fm = getFragmentManager();
+            fm.beginTransaction().replace(R.id.content_frame, new Results(),"RESULTS").commit();
             }
 
             return super.onOptionsItemSelected(item);
@@ -270,9 +260,13 @@ public class Drawer extends AppCompatActivity
             fm.beginTransaction().replace(R.id.content_frame, new History(),"HISTORY").addToBackStack(null).commit();
         }*/
             else if (id == R.id.bluetooth) {
-            //fm.beginTransaction().replace(R.id.content_frame, new Bluetooth(),"BLUETOOTH").addToBackStack(null).commit();
 
-            if (mBLEController.getConnectionState() != BluetoothAdapter.STATE_CONNECTED) {
+            Intent btActivity = new Intent(Drawer.this, Bluetooth.class);
+            startActivity(btActivity);
+
+        /*            //fm.beginTransaction().replace(R.id.content_frame, new Bluetooth(),"BLUETOOTH").addToBackStack(null).commit();
+
+           if (mBLEController.getConnectionState() != BluetoothAdapter.STATE_CONNECTED) {
                 //Check if bluetooth is on
                 if (mBLEController.isEnabled()) {
                     if (mBLEController.isSupportBLE()) {
@@ -313,7 +307,8 @@ public class Drawer extends AppCompatActivity
                 } else {
                     Toast.makeText(Drawer.this, "Bluetooth is not Enabled", Toast.LENGTH_SHORT).show();
                 }
-            }
+            }*/
+
 
 
 
@@ -343,10 +338,10 @@ public class Drawer extends AppCompatActivity
     public void onPause(){
         super.onPause();
 
-        if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_CONNECTED) {
+/*        if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_CONNECTED) {
             //mBLEController.disconnect();
             mBLEController.release();
-        }
+        }*/
 
 
 
@@ -356,13 +351,13 @@ public class Drawer extends AppCompatActivity
     public void onResume() {
         super.onResume();
 
-        if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_DISCONNECTED) {
+     /*   if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_DISCONNECTED) {
             if (mBLEController.startScan()) {
                 //Log.i("BLE", "Reconnect onResume");
                 mBLEController.reConnect();
             }
             //mBLEController.cancelScan();
-        }
+        }*/
 
     }
 
@@ -377,13 +372,12 @@ public class Drawer extends AppCompatActivity
     public void onRestart() {
         super.onRestart();
 
-        if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_DISCONNECTED) {
+/*        if(mBLEController.getConnectionState() == BluetoothAdapter.STATE_DISCONNECTED) {
             if (mBLEController.startScan()) {
                 mBLEController.reConnect();
             }
             //mBLEController.cancelScan();
-        }
-
+       }*/
     }
 
 

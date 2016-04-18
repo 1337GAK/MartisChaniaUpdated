@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,6 +46,9 @@ public class Results extends Fragment {
     float[] data;
     static public ProgressBar myProgress;
     ProgressBar dangerSkinProgress;
+    String readings;
+
+    TextView showExtras;
     TextView heartTextView;
     TextView tempTextView;
     TextView tempOutText;
@@ -71,8 +75,11 @@ public class Results extends Fragment {
     float Temp = (float) 28;
     float outTemp = (float) 21.5;
     float GSR = 400;
-
-
+    String cancer = "0123456789012";
+    char totalCancer[] = cancer.toCharArray();
+    String cancer1 = "" + totalCancer[0]+totalCancer[1];
+    String cancer2 = "" + totalCancer[2]+totalCancer[3];
+    SharedPreferences savedData;
 
 
 
@@ -84,6 +91,9 @@ public class Results extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_results,null);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Project M.A.R.T.I.S.");
+        Log.i("Error", cancer1 + " ahhah " +cancer2);
+        Log.i("Error", ""+totalCancer[5]);
+
 
 
 
@@ -227,13 +237,18 @@ public class Results extends Fragment {
             }
         });
 
+        SharedPreferences savedData = Results.this.getActivity().getSharedPreferences("data" , Context.MODE_PRIVATE);
+        readings = savedData.getString("userData","asdfqwerty");
+        showExtras = (TextView) view.findViewById(R.id.extras);
 
-
+        showExtras.setText(readings);
 
 
 
         return view;
     }
+
+
     private void setTime() {
         LinearLayout box = new LinearLayout(getActivity());
         box.setOrientation(LinearLayout.VERTICAL);
@@ -305,6 +320,9 @@ public class Results extends Fragment {
             }
         });
         timeSet.show();
+
+
+
     }
     private float[] readFromFile(String fileName) {          //Pass data from textfile to variables. Designed for 5 slot float table
         FileInputStream fileInput;
@@ -420,4 +438,6 @@ public class Results extends Fragment {
         float totalDmg = dmg+prevDmg;
         return totalDmg;
     }*/
+
+
 }

@@ -3,6 +3,8 @@ package martis.project.martischaniaupdated;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
@@ -78,7 +80,13 @@ public class Bluetooth  extends BlunoLibrary{
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
+
+                if(!isLocationServiceEnabled() && Build.VERSION.SDK_INT == 23 ) {
+                    connectionStatus.setText("Please enable location services");
+                } else {
+
+                    buttonScanOnClickProcess();
+                }
             }
         });
     }
@@ -168,6 +176,29 @@ public class Bluetooth  extends BlunoLibrary{
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public boolean isLocationServiceEnabled(){
+
+        LocationManager locationManager = null;
+        boolean gps_enabled= false,network_enabled = false;
+
+        if(locationManager ==null)
+            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        try{
+            gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        }catch(Exception ex){
+            //do nothing...
+        }
+
+        try{
+            //network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        }catch(Exception ex){
+            //do nothing...
+        }
+
+        return gps_enabled;
     }
 
 

@@ -209,7 +209,7 @@ public class Results extends Fragment {
         float dehydration1 = (100 * (1 - (weight - fluids + water1) / weight)); // convert to %
         final float staticDeh = dehydration1;
         DecimalFormat df = new DecimalFormat("###.###");
-        String deh = (df.format(-dehydration1));
+        String deh = (df.format(dehydration1));
         dehydration2.setText(deh + "%");// UI Interaction. Sets dehydration
         dehydration2.setOnClickListener(new View.OnClickListener() {
             @Override

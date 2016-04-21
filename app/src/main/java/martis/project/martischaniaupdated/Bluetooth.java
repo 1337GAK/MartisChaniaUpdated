@@ -1,5 +1,6 @@
 package martis.project.martischaniaupdated;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,14 +19,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.util.Random;
+
 import martis.project.martischaniaupdated.Fragments.Results;
+
 
 public class Bluetooth  extends BlunoLibrary{
     private Button buttonScan;
     private Button buttonSerialSend;
-    private Button buttonCalibrate;
-    private EditText serialSendText;
-    private TextView serialReceivedText;
+    private TextView tips;
+    private TextView connectionStatus;
     Toolbar toolbar;
 
 
@@ -42,8 +47,16 @@ public class Bluetooth  extends BlunoLibrary{
 
         serialBegin(115200);													//set the Uart Baudrate on BLE chip to 115200
 
-       // serialReceivedText=(TextView) findViewById(R.id.serialReveicedText);	//initial the EditText of the received data
-        //serialSendText=(EditText) findViewById(R.id.serialSendText);			//initial the EditText of the sending data
+        connectionStatus = (TextView) findViewById(R.id.connectionStatus);
+        connectionStatus.setText("Connection :");
+
+        tips = (TextView) findViewById(R.id.tips);
+        Random rand = new Random();
+        if ( rand.nextBoolean()) {
+            tips.setText("Always remember to use common sense before technology");
+        } else {
+            tips.setText("Your MARTIS device should always face the sun when measuring!");
+        }
 
         buttonSerialSend = (Button) findViewById(R.id.buttonSerialSend);		//initial the button for sending the data
         buttonSerialSend.setOnClickListener(new OnClickListener() {
@@ -51,24 +64,12 @@ public class Bluetooth  extends BlunoLibrary{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-
-               // serialSend(serialSendText.getText().toString());				//send the data to the BLUNO
+                //send the data to the BLUNO
                 serialSend("m");
-                Toast.makeText(Bluetooth.this, "Measurements received! Go to Results and hit the Refresh button!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Bluetooth.this, "Prepare your martis device for measurements", Toast.LENGTH_SHORT).show();
             }
         });
-        buttonCalibrate = (Button) findViewById(R.id.buttonCalibrate);
-        buttonCalibrate.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                // serialSend(serialSendText.getText().toString());				//send the data to the BLUNO
-                serialSend("c");
-                Toast.makeText(Bluetooth.this, "Calibrated!", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         buttonScan = (Button) findViewById(R.id.buttonScan);					//initial the button for scanning the BLE device
         buttonScan.setOnClickListener(new OnClickListener() {
@@ -110,6 +111,8 @@ public class Bluetooth  extends BlunoLibrary{
     protected void onStop() {
         super.onStop();
         onStopProcess();														//onStop Process by BlunoLibrary
+
+
     }
 
     @Override
@@ -122,21 +125,23 @@ public class Bluetooth  extends BlunoLibrary{
     public void onConectionStateChange(connectionStateEnum theConnectionState) {//Once connection state changes, this function will be called
         switch (theConnectionState) {											//Four connection state
             case isConnected:
-                buttonScan.setText("Connected");
+                serialSend("c");
+                connectionStatus.setText("Connection : Connected");
                 break;
             case isConnecting:
-                buttonScan.setText("Connecting");
+                connectionStatus.setText("Connection : Connecting");
                 break;
             case isToScan:
-                buttonScan.setText("Scan");
+                connectionStatus.setText("Connection : ");
                 break;
             case isScanning:
-                buttonScan.setText("Scanning");
+                connectionStatus.setText("Connection : Scanning");
                 break;
             case isDisconnecting:
-                buttonScan.setText("isDisconnecting");
+                connectionStatus.setText("Connection : Disconnecting");
                 break;
             default:
+                connectionStatus.setText("Connection : ");
                 break;
         }
     }
@@ -145,15 +150,12 @@ public class Bluetooth  extends BlunoLibrary{
     public void onSerialReceived(String theString) {							//Once connection data received, this function will be called
         // TODO Auto-generated method stub
 
-        serialReceivedText.append(theString);;//append the text into the EditText
         Toast.makeText(Bluetooth.this, "Info "+theString, Toast.LENGTH_SHORT).show();
        SharedPreferences savedData = getApplicationContext().getSharedPreferences("data", MODE_PRIVATE);
         SharedPreferences.Editor edit = savedData.edit();
-        Log.i("Error","User Data= "+theString);
-        edit.putString("userData",theString);
+        Log.i("Error", "User Data= " + theString);
+        edit.putString("userData", theString);
         edit.commit();
-        //The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
-        ((ScrollView)serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
     }
 
 
@@ -167,4 +169,6 @@ public class Bluetooth  extends BlunoLibrary{
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
